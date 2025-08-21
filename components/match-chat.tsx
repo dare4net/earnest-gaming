@@ -1,0 +1,198 @@
+"use client"
+
+import type React from "react"
+
+import { useState, useEffect, useRef } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Badge } from "@/components/ui/badge"
+import { MessageCircle, Send, Shield } from "lucide-react"
+
+interface ChatMessage {
+  id: string
+  username: string
+  message: string
+  timestamp: Date
+  isSystem?: boolean
+  isCurrentUser?: boolean
+}
+
+interface MatchChatProps {
+  matchId: string
+  currentUser: string
+  opponent: string
+}
+
+export function MatchChat({ matchId, currentUser, opponent }: MatchChatProps) {
+  const [messages, setMessages] = useState<ChatMessage[]>([])
+  const [newMessage, setNewMessage] = useState("")
+  const [isConnected, setIsConnected] = useState(true)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  // Mock initial messages
+  useEffect(() => {
+    const initialMessages: ChatMessage[] = [
+      {
+        id: "1",
+        username: "System",
+        message: "Match started! Good luck to both players.",
+        timestamp: new Date(Date.now() - 600000),
+        isSystem: true,
+      },
+      {
+        id: "2",
+        username: opponent,
+        message: "Good luck! May the best player win 🎮",
+        timestamp: new Date(Date.now() - 300000),
+        isCurrentUser: false,
+      },
+      {
+        id: "3",
+        username: currentUser,
+        message: "Thanks! Let's have a great match!",
+        timestamp: new Date(Date.now() - 240000),
+        isCurrentUser: true,
+      },
+    ]
+
+    setMessages(initialMessages)
+  }, [currentUser, opponent])
+
+  // Auto-scroll to bottom when new messages arrive
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
+
+  // Simulate receiving messages
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (Math.random() > 0.7) {
+        // 30% chance of receiving a message
+        const opponentMessages = [
+          "Nice move!",
+          "That was close!",
+          "Good game so far",
+          "You're playing well",
+          "This is intense!",
+        ]
+
+        const newMsg: ChatMessage = {
+          id: Date.now().toString(),
+          username: opponent,
+          message: opponentMessages[Math.floor(Math.random() * opponentMessages.length)],
+          timestamp: new Date(),
+          isCurrentUser: false,
+        }
+
+        setMessages((prev) => [...prev, newMsg])
+      }
+    }, 15000) // Check every 15 seconds
+
+    return () => clearInterval(interval)
+  }, [opponent])
+
+  const sendMessage = () => {
+    if (!newMessage.trim()) return
+
+    const message: ChatMessage = {
+      id: Date.now().toString(),
+      username: currentUser,
+      message: newMessage.trim(),
+      timestamp: new Date(),
+      isCurrentUser: true,
+    }
+
+    setMessages((prev) => [...prev, message])
+    setNewMessage("")
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault()
+      sendMessage()
+    }
+  }
+
+  const formatTime = (timestamp: Date) => {
+    return timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+  }
+
+  return (
+    <Card className="h-96 flex flex-col">
+      <CardHeader className="pb-3">
+        <CardTitle className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <MessageCircle className="h-5 w-5" />
+            Match Chat
+          </div>
+          <div className="flex items-center gap-2">
+            {isConnected ? (
+              <Badge variant="secondary" className="bg-green-100 text-green-800">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-1" />
+                Connected
+              </Badge>
+            ) : (
+              <Badge variant="secondary" className="bg-red-100 text-red-800">
+                Disconnected
+              </Badge>
+            )}
+          </div>
+        </CardTitle>
+      </CardHeader>
+
+      <CardContent className="flex-1 flex flex-col p-0">
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          {messages.map((message) => (
+            <div
+              key={message.id}
+              className={`flex ${message.isCurrentUser ? "justify-end" : "justify-start"} ${
+                message.isSystem ? "justify-center" : ""
+              }`}
+            >
+              <div
+                className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
+                  message.isSystem
+                    ? "bg-muted text-muted-foreground text-center"
+                    : message.isCurrentUser
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted"
+                }`}
+              >
+                {!message.isSystem && <div className="font-medium text-xs mb-1 opacity-75">{message.username}</div>}
+                <div>{message.message}</div>
+                <div className="text-xs opacity-75 mt-1">{formatTime(message.timestamp)}</div>
+              </div>
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input */}
+        <div className="p-4 border-t">
+          <div className="flex gap-2">
+            <Input
+              placeholder="Type a message..."
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
+              disabled={!isConnected}
+              maxLength={200}
+            />
+            <Button onClick={sendMessage} disabled={!newMessage.trim() || !isConnected} size="sm">
+              <Send className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
+            <div className="flex items-center gap-1">
+              <Shield className="h-3 w-3" />
+              Keep it respectful
+            </div>
+            <div>{newMessage.length}/200</div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
