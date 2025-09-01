@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { api } from "@/lib/api"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Trophy, TrendingUp, TrendingDown, Minus, Crown } from "lucide-react"
@@ -19,36 +20,25 @@ interface LeaderboardPlayer {
 }
 
 export function LiveLeaderboard() {
-  const [players, setPlayers] = useState<LeaderboardPlayer[]>([
-    {
-      id: "1",
-      username: "ProGamer123",
-      avatar: "/placeholder.svg?height=32&width=32",
-      wins: 89,
-      winRate: 78.5,
-      earnings: 2450.75,
-      rank: 1,
-      previousRank: 1,
-      isOnline: true,
-    },
-    {
-      id: "2",
-      username: "SkillMaster99",
-      avatar: "/placeholder.svg?height=32&width=32",
-      wins: 76,
-      winRate: 72.1,
-      earnings: 2180.25,
-      rank: 2,
-      previousRank: 3,
-      isOnline: true,
-    },
-    {
-      id: "3",
-      username: "ChampionPlayer",
-      avatar: "/placeholder.svg?height=32&width=32",
-      wins: 82,
-      winRate: 69.8,
-      earnings: 2050.5,
+  const [players, setPlayers] = useState<LeaderboardPlayer[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPlayers = async () => {
+      try {
+        const data = await api.getLeaderboard();
+        setPlayers(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load players');
+        setLoading(false);
+      }
+    };
+
+    fetchPlayers();
+  }, []);
+     /* earnings: 2050.5,
       rank: 3,
       previousRank: 2,
       isOnline: false,
@@ -75,7 +65,7 @@ export function LiveLeaderboard() {
       previousRank: 6,
       isOnline: true,
     },
-  ])
+  ])*/
 
   // Simulate real-time leaderboard updates
   useEffect(() => {

@@ -22,7 +22,6 @@ export function LiveStats() {
 
   const [isLive, setIsLive] = useState(true)
 
-  // Simulate real-time updates
   useEffect(() => {
     const interval = setInterval(() => {
       setStats((prev) => ({
@@ -31,30 +30,27 @@ export function LiveStats() {
         totalWagered: prev.totalWagered + Math.random() * 100,
         matchesCompleted: prev.matchesCompleted + Math.floor(Math.random() * 3),
       }))
-    }, 3000) // Update every 3 seconds
-
+    }, 3000)
     return () => clearInterval(interval)
   }, [])
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
+  const formatCurrency = (amount: number) =>
+    new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount)
-  }
 
-  const formatNumber = (num: number) => {
-    return new Intl.NumberFormat("en-US").format(num)
-  }
+  const formatNumber = (num: number) => new Intl.NumberFormat("en-US").format(num)
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* Online Users */}
       <Card className="relative overflow-hidden">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardHeader className="flex flex-row items-start justify-between pb-2">
           <CardTitle className="text-sm font-medium">Online Players</CardTitle>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col items-center gap-1">
             <Users className="h-4 w-4 text-muted-foreground" />
             {isLive && (
               <div className="flex items-center gap-1">
@@ -68,17 +64,17 @@ export function LiveStats() {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{formatNumber(stats.onlineUsers)}</div>
-          <p className="text-xs text-muted-foreground">
-            <TrendingUp className="h-3 w-3 inline mr-1" />
-            +2.5% from yesterday
+          <p className="text-xs text-muted-foreground flex items-center">
+            <TrendingUp className="h-3 w-3 mr-1" /> +2.5% from yesterday
           </p>
         </CardContent>
       </Card>
 
+      {/* Active Matches */}
       <Card className="relative overflow-hidden">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardHeader className="flex flex-row items-start justify-between pb-2">
           <CardTitle className="text-sm font-medium">Active Matches</CardTitle>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col items-center gap-1">
             <Gamepad2 className="h-4 w-4 text-muted-foreground" />
             {isLive && (
               <div className="flex items-center gap-1">
@@ -92,17 +88,17 @@ export function LiveStats() {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{formatNumber(stats.activeMatches)}</div>
-          <p className="text-xs text-muted-foreground">
-            <Activity className="h-3 w-3 inline mr-1" />
-            Peak: 234 matches
+          <p className="text-xs text-muted-foreground flex items-center">
+            <Activity className="h-3 w-3 mr-1" /> Peak: 234 matches
           </p>
         </CardContent>
       </Card>
 
+      {/* Total Wagered */}
       <Card className="relative overflow-hidden">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardHeader className="flex flex-row items-start justify-between pb-2">
           <CardTitle className="text-sm font-medium">Total Wagered</CardTitle>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col items-center gap-1">
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
             {isLive && (
               <div className="flex items-center gap-1">
@@ -116,17 +112,17 @@ export function LiveStats() {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{formatCurrency(stats.totalWagered)}</div>
-          <p className="text-xs text-muted-foreground">
-            <TrendingUp className="h-3 w-3 inline mr-1" />
-            +15.2% this week
+          <p className="text-xs text-muted-foreground flex items-center">
+            <TrendingUp className="h-3 w-3 mr-1" /> +15.2% this week
           </p>
         </CardContent>
       </Card>
 
+      {/* Matches Completed */}
       <Card className="relative overflow-hidden">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardHeader className="flex flex-row items-start justify-between pb-2">
           <CardTitle className="text-sm font-medium">Matches Completed</CardTitle>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col items-center gap-1">
             <Activity className="h-4 w-4 text-muted-foreground" />
             {isLive && (
               <div className="flex items-center gap-1">
@@ -140,9 +136,8 @@ export function LiveStats() {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{formatNumber(stats.matchesCompleted)}</div>
-          <p className="text-xs text-muted-foreground">
-            <Activity className="h-3 w-3 inline mr-1" />
-            +89 today
+          <p className="text-xs text-muted-foreground flex items-center">
+            <Activity className="h-3 w-3 mr-1" /> +89 today
           </p>
         </CardContent>
       </Card>

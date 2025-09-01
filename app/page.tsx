@@ -1,48 +1,37 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { useAuth } from "@/lib/auth-context"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Gamepad2, Trophy, Users, Zap, Shield, Timer } from "lucide-react"
+import { Gamepad2, Trophy, Users, Zap, Shield, Timer, Bell, Wallet } from "lucide-react"
+import { MobileNav } from "@/components/mobile-nav"
 import Link from "next/link"
 import { AuthModal } from "@/components/auth-modal"
 import { GameCard } from "@/components/game-card"
 import { NotificationSystem } from "@/components/notification-system"
 import { LiveStats } from "@/components/live-stats"
 import { LiveLeaderboard } from "@/components/live-leaderboard"
+import { GAMES, Game } from '@/lib/game-constants'
 
 export default function HomePage() {
+  const { user, logout } = useAuth();
   const [showAuth, setShowAuth] = useState(false)
   const [authMode, setAuthMode] = useState<"login" | "signup">("login")
 
-  const games = [
-    {
-      id: "efootball",
-      name: "eFootball",
-      description: "Find opponents for competitive eFootball matches",
-      icon: "⚽",
-      color: "from-blue-600 to-blue-800",
-      players: "2.3k online",
-    },
-    {
-      id: "fifa",
-      name: "FIFA",
-      description: "Challenge players in FIFA tournaments",
-      icon: "🏆",
-      color: "from-green-600 to-green-800",
-      players: "1.8k online",
-    },
-    {
-      id: "codm",
-      name: "Call of Duty Mobile",
-      description: "Battle with matched ammunition types",
-      icon: "🎯",
-      color: "from-red-600 to-red-800",
-      players: "4.1k online",
-      special: "Ammo matching required",
-    },
-  ]
+  const games = Object.values(GAMES) as Game[]
+
+  // Listen for auth events from mobile nav
+  useEffect(() => {
+    const handleAuthToggle = (e: CustomEvent<{ mode: "login" | "signup" }>) => {
+      handleAuthClick(e.detail.mode)
+    }
+
+    window.addEventListener('toggleAuth', handleAuthToggle as EventListener)
+    return () => window.removeEventListener('toggleAuth', handleAuthToggle as EventListener)
+  }, [])
 
   const features = [
     {
@@ -78,63 +67,104 @@ export default function HomePage() {
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Gamepad2 className="h-8 w-8 text-primary" />
-            <h1 className="text-2xl font-bold text-foreground">GameMatch</h1>
+            <Gamepad2 className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+            <h1 className="text-lg sm:text-2xl font-bold text-foreground">EarnestGame</h1>
           </div>
-          <div className="flex items-center gap-3">
-            <NotificationSystem />
+          
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-3">
+            <Button variant="ghost" size="icon" className="relative">
+              <Bell className="h-5 w-5" />
+              <span className="absolute -top-1 -right-1 h-4 w-4 bg-primary text-[10px] rounded-full flex items-center justify-center text-primary-foreground">3</span>
+            </Button>
             <Link href="/leagues">
               <Button variant="ghost">
                 <Trophy className="h-4 w-4 mr-2" />
                 Leagues
               </Button>
             </Link>
-            <Button variant="ghost" onClick={() => handleAuthClick("login")}>
-              Login
+            {user ? (
+              <>
+                <Link href="/wallet">
+                  <Button variant="ghost">
+                    <Wallet className="h-4 w-4 mr-2" />
+                    ${user.earnings?.toFixed(2)}
+                  </Button>
+                </Link>
+                <Button variant="ghost" onClick={logout}>
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="ghost" onClick={() => handleAuthClick("login")}>
+                  Login
+                </Button>
+                <Button onClick={() => handleAuthClick("signup")}>
+                  Sign Up
+                </Button>
+              </>
+            )}
+          </div>
+
+          {/* Mobile Navigation */}
+          <div className="flex md:hidden items-center gap-2">
+            <Button variant="ghost" size="icon" className="relative">
+              <Bell className="h-5 w-5" />
+              <span className="absolute -top-1 -right-1 h-4 w-4 bg-primary text-[10px] rounded-full flex items-center justify-center text-primary-foreground">3</span>
             </Button>
-            <Button onClick={() => handleAuthClick("signup")}>Sign Up</Button>
+            <MobileNav />
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto text-center max-w-4xl">
-          <div className="mb-8">
-            <Badge variant="secondary" className="mb-4">
-              <Zap className="h-4 w-4 mr-1" />
+      <section
+        className="py-10 sm:py-20 px-4 relative"
+        style={{
+          backgroundImage: 'url(/earnest.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div className="absolute inset-0 bg-black/60 z-0" />
+        <div className="container mx-auto text-center max-w-4xl relative z-10">
+          <div className="mb-6 sm:mb-8">
+            <Badge variant="secondary" className="mb-4 text-xs sm:text-sm">
+              <Zap className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
               Find Your Perfect Gaming Match
             </Badge>
-            <h2 className="text-5xl font-bold text-foreground mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
               Compete. Wager. <span className="text-primary">Win.</span>
             </h2>
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-foreground mb-6 sm:mb-8 leading-relaxed px-2">
               Connect with skilled players, place competitive wagers, and prove your gaming prowess in eFootball, FIFA,
               and Call of Duty Mobile.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="text-lg px-8" onClick={() => handleAuthClick("signup")}>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-12 px-4">
+            <Button size="lg" className="text-base sm:text-lg px-4 sm:px-8 w-full sm:w-auto" onClick={() => handleAuthClick("signup")}>
               Start Gaming Now
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 bg-transparent">
+            <Button size="lg" className="text-base sm:text-lg px-4 sm:px-8 text-black bg-secondary w-full sm:w-auto">
               Watch Demo
             </Button>
           </div>
 
-          <div className="mt-16">
+          <div className="mt-8 sm:mt-16">
             <LiveStats />
           </div>
         </div>
       </section>
 
       {/* Games Section */}
-      <section className="py-20 px-4 bg-muted/20">
+      <section className="py-12 sm:py-20 px-4 bg-muted/20">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-foreground mb-4">Choose Your Game</h3>
-            <p className="text-lg text-muted-foreground">
+          <div className="text-center mb-8 sm:mb-12">
+            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 sm:mb-4">Choose Your Game</h3>
+            <p className="text-base sm:text-lg text-muted-foreground px-2">
               Select from our supported games and find your perfect opponent
             </p>
           </div>
@@ -148,23 +178,30 @@ export default function HomePage() {
       </section>
 
       {/* Tournament Leagues Section */}
-      <section className="py-20 px-4">
+      <section className="py-12 sm:py-20 px-4">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-foreground mb-4">Tournament Leagues</h3>
-            <p className="text-lg text-muted-foreground">
+          <div className="text-center mb-8 sm:mb-12">
+            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 sm:mb-4">Tournament Leagues</h3>
+            <p className="text-base sm:text-lg text-muted-foreground px-2">
               Join competitive tournaments with group stages, knockouts, and massive prize pools
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
             <Card className="hover:shadow-lg transition-all duration-300">
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
                   <Badge variant="secondary" className="bg-green-100 text-green-800">
                     Registration Open
                   </Badge>
-                  <div className="text-2xl">⚽</div>
+                  <div className="w-8 h-8 relative">
+                    <Image
+                      src={GAMES.efootball.iconPath}
+                      alt="eFootball"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
                 <CardTitle className="text-lg">Winter Championship</CardTitle>
                 <CardDescription>32-player knockout tournament</CardDescription>
@@ -194,7 +231,14 @@ export default function HomePage() {
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
                   <Badge variant="outline">Upcoming</Badge>
-                  <div className="text-2xl">🏆</div>
+                  <div className="w-8 h-8 relative">
+                    <Image
+                      src={GAMES.fifa.iconPath}
+                      alt="FIFA"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
                 <CardTitle className="text-lg">FIFA Masters League</CardTitle>
                 <CardDescription>16-player group stage + knockout</CardDescription>
@@ -228,7 +272,14 @@ export default function HomePage() {
                   <Badge variant="secondary" className="bg-green-100 text-green-800">
                     Registration Open
                   </Badge>
-                  <div className="text-2xl">🎯</div>
+                  <div className="w-8 h-8 relative">
+                    <Image
+                      src={GAMES.codm.iconPath}
+                      alt="CODM"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
                 <CardTitle className="text-lg">CODM Championship</CardTitle>
                 <CardDescription>64-player battle royale tournament</CardDescription>
@@ -267,16 +318,16 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 bg-muted/20">
+      <section className="py-12 sm:py-20 px-4 bg-muted/20">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-foreground mb-4">Why Choose GameMatch?</h3>
-            <p className="text-lg text-muted-foreground">
+          <div className="text-center mb-8 sm:mb-12">
+            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 sm:mb-4">Why Choose GameMatch?</h3>
+            <p className="text-base sm:text-lg text-muted-foreground px-2">
               Built for competitive gamers who demand fairness and excitement
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
             {features.map((feature, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
@@ -293,37 +344,37 @@ export default function HomePage() {
       </section>
 
       {/* Top Players Section */}
-      <section className="py-20 px-4">
+      <section className="py-12 sm:py-20 px-4">
         <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-foreground mb-4">Top Players</h3>
-            <p className="text-lg text-muted-foreground">See who's dominating the leaderboards right now</p>
+          <div className="text-center mb-8 sm:mb-12">
+            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 sm:mb-4">Top Players</h3>
+            <p className="text-base sm:text-lg text-muted-foreground px-2">See who's dominating the leaderboards right now</p>
           </div>
           <LiveLeaderboard />
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-primary/5">
-        <div className="container mx-auto text-center max-w-4xl">
-          <h3 className="text-3xl font-bold text-foreground mb-4">Ready to Start Your Gaming Journey?</h3>
-          <p className="text-lg text-muted-foreground mb-8">
+      <section className="py-12 sm:py-20 px-4 bg-primary/5">
+        <div className="container mx-auto text-center max-w-4xl px-2">
+          <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 sm:mb-4">Ready to Start Your Gaming Journey?</h3>
+          <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
             Join thousands of competitive gamers and start earning from your skills today.
           </p>
-          <Button size="lg" className="text-lg px-8" onClick={() => handleAuthClick("signup")}>
+          <Button size="lg" className="text-base sm:text-lg px-4 sm:px-8 w-full sm:w-auto" onClick={() => handleAuthClick("signup")}>
             Create Free Account
           </Button>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border py-12 px-4">
+      <footer className="border-t border-border py-8 sm:py-12 px-4">
         <div className="container mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Gamepad2 className="h-6 w-6 text-primary" />
-            <span className="text-lg font-semibold">GameMatch</span>
+          <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
+            <Gamepad2 className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+            <span className="text-base sm:text-lg font-semibold">GameMatch</span>
           </div>
-          <p className="text-muted-foreground">© 2024 GameMatch. All rights reserved. Game responsibly.</p>
+          <p className="text-sm sm:text-base text-muted-foreground px-2">© 2024 GameMatch. All rights reserved. Game responsibly.</p>
         </div>
       </footer>
 
