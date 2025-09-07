@@ -63,15 +63,19 @@ export function PlayerManagement() {
     switch (status) {
       case "active":
         return (
-          <Badge variant="secondary" className="bg-green-100 text-green-800">
+          <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
             Active
           </Badge>
         )
       case "suspended":
-        return <Badge variant="destructive">Suspended</Badge>
+        return (
+          <Badge variant="secondary" className="bg-red-500/20 text-red-400 border-red-500/30">
+            Suspended
+          </Badge>
+        )
       case "pending":
         return (
-          <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+          <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
             Pending
           </Badge>
         )
@@ -101,105 +105,121 @@ export function PlayerManagement() {
     <div className="space-y-6">
       {/* Player Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Users className="h-4 w-4 text-blue-600" />
-              <span className="text-sm text-muted-foreground">Total Players</span>
+        <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+              <Users className="h-5 w-5 text-white" />
             </div>
-            <div className="text-2xl font-bold">8,247</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <CheckCircle className="h-4 w-4 text-green-600" />
-              <span className="text-sm text-muted-foreground">Active</span>
+            <div>
+              <p className="text-sm text-gray-400">Total Players</p>
+              <p className="text-2xl font-bold text-white">8,247</p>
             </div>
-            <div className="text-2xl font-bold">7,892</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Ban className="h-4 w-4 text-red-600" />
-              <span className="text-sm text-muted-foreground">Suspended</span>
+          </div>
+        </div>
+        <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+              <CheckCircle className="h-5 w-5 text-white" />
             </div>
-            <div className="text-2xl font-bold">234</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <AlertTriangle className="h-4 w-4 text-yellow-600" />
-              <span className="text-sm text-muted-foreground">Pending</span>
+            <div>
+              <p className="text-sm text-gray-400">Active</p>
+              <p className="text-2xl font-bold text-white">7,892</p>
             </div>
-            <div className="text-2xl font-bold">121</div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
+        <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-pink-600 flex items-center justify-center shadow-lg shadow-red-500/20">
+              <Ban className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <p className="text-sm text-gray-400">Suspended</p>
+              <p className="text-2xl font-bold text-white">234</p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-500 to-orange-600 flex items-center justify-center shadow-lg shadow-yellow-500/20">
+              <AlertTriangle className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <p className="text-sm text-gray-400">Pending</p>
+              <p className="text-2xl font-bold text-white">121</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Player Management */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Users className="h-5 w-5" />
-            Player Management
-          </CardTitle>
-          <CardDescription>View and manage player accounts</CardDescription>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-6">
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+              <Users className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-white">Player Management</h2>
+              <p className="text-sm text-gray-400">View and manage player accounts</p>
+            </div>
+          </div>
+        </div>
+        <div className="space-y-6">
           {/* Search and Filters */}
-          <div className="flex gap-4 mb-6">
+          <div className="flex gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               <Input
                 placeholder="Search players by username or email..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 bg-[#0A0B0F] border-[#2A2D36] text-white placeholder:text-gray-500 focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500"
               />
             </div>
-            <Button variant="outline">
+            <Button variant="outline" className="bg-[#0A0B0F] border-[#2A2D36] text-white hover:bg-[#2A2D36] hover:text-purple-400">
               <Filter className="h-4 w-4 mr-2" />
               Filter
             </Button>
           </div>
 
           {/* Players Table */}
-          <div className="rounded-md border">
+          <div className="rounded-xl border border-[#2A2D36] bg-[#0A0B0F] overflow-hidden">
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>Player</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Matches</TableHead>
-                  <TableHead>Win Rate</TableHead>
-                  <TableHead>Balance</TableHead>
-                  <TableHead>Last Active</TableHead>
-                  <TableHead>Actions</TableHead>
+                <TableRow className="border-b border-[#2A2D36] bg-[#1C1E24]">
+                  <TableHead className="text-gray-400">Player</TableHead>
+                  <TableHead className="text-gray-400">Status</TableHead>
+                  <TableHead className="text-gray-400">Matches</TableHead>
+                  <TableHead className="text-gray-400">Win Rate</TableHead>
+                  <TableHead className="text-gray-400">Balance</TableHead>
+                  <TableHead className="text-gray-400">Last Active</TableHead>
+                  <TableHead className="text-gray-400">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredPlayers.map((player) => (
-                  <TableRow key={player.id}>
+                  <TableRow key={player.id} className="border-b border-[#2A2D36] bg-[#0A0B0F] hover:bg-[#1C1E24] transition-colors">
                     <TableCell>
                       <div>
-                        <div className="font-medium">{player.username}</div>
-                        <div className="text-sm text-muted-foreground">{player.email}</div>
+                        <div className="font-medium text-white">{player.username}</div>
+                        <div className="text-sm text-gray-400">{player.email}</div>
                       </div>
                     </TableCell>
                     <TableCell>{getStatusBadge(player.status)}</TableCell>
-                    <TableCell>{player.totalMatches}</TableCell>
-                    <TableCell>{player.winRate}%</TableCell>
-                    <TableCell>{formatCurrency(player.walletBalance)}</TableCell>
-                    <TableCell>{formatDate(player.lastActive)}</TableCell>
+                    <TableCell className="text-gray-300">{player.totalMatches}</TableCell>
+                    <TableCell>
+                      <span className={player.winRate > 50 ? "text-emerald-400" : "text-gray-300"}>
+                        {player.winRate}%
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-gray-300">{formatCurrency(player.walletBalance)}</TableCell>
+                    <TableCell className="text-gray-300">{formatDate(player.lastActive)}</TableCell>
                     <TableCell>
                       <div className="flex gap-2">
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" className="bg-[#1C1E24] border-[#2A2D36] text-gray-300 hover:bg-[#2A2D36] hover:text-purple-400">
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" className="bg-[#1C1E24] border-[#2A2D36] text-gray-300 hover:bg-[#2A2D36] hover:text-red-400">
                           <Ban className="h-4 w-4" />
                         </Button>
                       </div>
@@ -209,8 +229,8 @@ export function PlayerManagement() {
               </TableBody>
             </Table>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }

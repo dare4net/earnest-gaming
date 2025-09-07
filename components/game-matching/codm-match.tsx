@@ -1,11 +1,13 @@
 import { useState } from "react"
-import { Target, AlertTriangle } from "lucide-react"
+import { Target, AlertTriangle, ArrowLeft } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { MatchBase } from "./match-base"
 import { WagerControls } from "./wager-controls"
+import { MatchConfirmation } from "./match-confirmation"
 
 interface CodmMatchProps {
   onClose?: () => void
@@ -17,15 +19,46 @@ export function CodmMatch({ onClose }: CodmMatchProps) {
   const [ammoType, setAmmoType] = useState("")
   const [hasAmmoConfirmed, setHasAmmoConfirmed] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
+  const [showConfirmation, setShowConfirmation] = useState(false)
 
-  const handleFindMatch = () => {
-    if (!gameMode || !ammoType || !hasAmmoConfirmed) return
-    setIsSearching(true)
+  const handleProceed = () => {
+    if (!gameMode || !ammoType || !hasAmmoConfirmed) return;
+    setShowConfirmation(true);
+  }
+
+  const handleConfirm = () => {
+    setIsSearching(true);
     // TODO: Implement matchmaking logic
     setTimeout(() => {
-      setIsSearching(false)
-      // Handle match found
-    }, 3000)
+      setIsSearching(false);
+      // Redirect to match page with generated ID
+      window.location.href = `/match/${Date.now()}`;
+    }, 3000);
+  }
+
+  if (showConfirmation) {
+    return (
+      <div className="container mx-auto px-4 py-8 max-w-2xl">
+        <div className="mb-6">
+          <Button
+            variant="ghost"
+            onClick={() => setShowConfirmation(false)}
+            className="text-gray-400 hover:text-white"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Match Options
+          </Button>
+        </div>
+        <MatchConfirmation
+          game="codm"
+          amount={wagerAmount[0]}
+          gameMode={gameMode}
+          ammoType={ammoType}
+          onConfirm={handleConfirm}
+          isSearching={isSearching}
+        />
+      </div>
+    )
   }
 
   const canSearch = gameMode && ammoType && hasAmmoConfirmed
@@ -115,7 +148,7 @@ export function CodmMatch({ onClose }: CodmMatchProps) {
           <Checkbox 
             id="ammo-confirm" 
             checked={hasAmmoConfirmed} 
-            onCheckedChange={setHasAmmoConfirmed}
+            onCheckedChange={(checked) => setHasAmmoConfirmed(checked === true)}
             className="mt-1 bg-[#1C1E24] border-[#2A2D36] data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500"
           />
           <Label htmlFor="ammo-confirm" className="text-sm text-gray-400">
@@ -138,7 +171,7 @@ export function CodmMatch({ onClose }: CodmMatchProps) {
         gameMode={gameMode}
         ammoType={ammoType}
         disabled={!canSearch}
-        onClose={onClose}
+        onClose={() => handleProceed()}
       />
 
       {!canSearch && (

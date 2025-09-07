@@ -119,32 +119,40 @@ export function LeagueManagement() {
     switch (status) {
       case "upcoming":
         return (
-          <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+          <Badge variant="secondary" className="bg-blue-500/20 text-blue-400 border-blue-500/30">
             Upcoming
           </Badge>
         )
       case "registration_open":
         return (
-          <Badge variant="secondary" className="bg-green-100 text-green-800">
+          <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
             Registration Open
           </Badge>
         )
       case "registration_closed":
         return (
-          <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+          <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
             Registration Closed
           </Badge>
         )
       case "in_progress":
-        return <Badge variant="default">In Progress</Badge>
+        return (
+          <Badge variant="secondary" className="bg-purple-500/20 text-purple-400 border-purple-500/30">
+            In Progress
+          </Badge>
+        )
       case "completed":
         return (
-          <Badge variant="secondary" className="bg-gray-100 text-gray-800">
+          <Badge variant="secondary" className="bg-gray-500/20 text-gray-400 border-gray-500/30">
             Completed
           </Badge>
         )
       case "cancelled":
-        return <Badge variant="destructive">Cancelled</Badge>
+        return (
+          <Badge variant="secondary" className="bg-red-500/20 text-red-400 border-red-500/30">
+            Cancelled
+          </Badge>
+        )
       default:
         return null
     }
@@ -190,205 +198,205 @@ export function LeagueManagement() {
 
   return (
     <div className="space-y-6">
-      {/* League Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Trophy className="h-4 w-4 text-yellow-600" />
-              <span className="text-sm text-muted-foreground">Total Leagues</span>
+        {/* League Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-500 to-amber-600 flex items-center justify-center shadow-lg shadow-yellow-500/20">
+                <Trophy className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Total Leagues</p>
+                <p className="text-2xl font-bold text-white">24</p>
+                <p className="text-xs text-emerald-500">+3 this month</p>
+              </div>
             </div>
-            <div className="text-2xl font-bold">24</div>
-            <div className="text-xs text-green-600">+3 this month</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Users className="h-4 w-4 text-blue-600" />
-              <span className="text-sm text-muted-foreground">Active Participants</span>
+          </div>
+          <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                <Users className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Active Participants</p>
+                <p className="text-2xl font-bold text-white">1,247</p>
+                <p className="text-xs text-blue-400">Across all leagues</p>
+              </div>
             </div>
-            <div className="text-2xl font-bold">1,247</div>
-            <div className="text-xs text-blue-600">Across all leagues</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <DollarSign className="h-4 w-4 text-green-600" />
-              <span className="text-sm text-muted-foreground">Total Prize Pools</span>
+          </div>
+          <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                <DollarSign className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Total Prize Pools</p>
+                <p className="text-2xl font-bold text-white">$89,500</p>
+                <p className="text-xs text-emerald-400">Active leagues</p>
+              </div>
             </div>
-            <div className="text-2xl font-bold">$89,500</div>
-            <div className="text-xs text-green-600">Active leagues</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <CheckCircle className="h-4 w-4 text-purple-600" />
-              <span className="text-sm text-muted-foreground">Completed</span>
+          </div>
+          <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-lg shadow-purple-500/20">
+                <CheckCircle className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Completed</p>
+                <p className="text-2xl font-bold text-white">156</p>
+                <p className="text-xs text-purple-400">All time</p>
+              </div>
             </div>
-            <div className="text-2xl font-bold">156</div>
-            <div className="text-xs text-purple-600">All time</div>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+        </div>
 
-      {/* League Management Tabs */}
-      <Tabs defaultValue="active" className="w-full">
-        <div className="flex items-center justify-between mb-4">
-          <TabsList>
-            <TabsTrigger value="active">Active Leagues</TabsTrigger>
-            <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
-            <TabsTrigger value="completed">Completed</TabsTrigger>
-          </TabsList>
+        {/* League Management Tabs */}
+        <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-6">
+          <Tabs defaultValue="active" className="w-full">
+            <div className="flex items-center justify-between mb-6">
+              <TabsList className="bg-[#0A0B0F] border border-[#2A2D36] p-1">
+                <TabsTrigger 
+                  value="active"
+                  className="data-[state=active]:bg-[#2A2D36] data-[state=active]:text-white text-gray-400 hover:text-gray-300"
+                >
+                  Active Leagues
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="upcoming"
+                  className="data-[state=active]:bg-[#2A2D36] data-[state=active]:text-white text-gray-400 hover:text-gray-300"
+                >
+                  Upcoming
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="completed"
+                  className="data-[state=active]:bg-[#2A2D36] data-[state=active]:text-white text-gray-400 hover:text-gray-300"
+                >
+                  Completed
+                </TabsTrigger>
+              </TabsList>
 
-          <Dialog open={showCreateLeague} onOpenChange={setShowCreateLeague}>
-            <DialogTrigger asChild>
-              <Button>
-                <Plus className="h-4 w-4 mr-2" />
-                Create League
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-2xl">
+              <Dialog open={showCreateLeague} onOpenChange={setShowCreateLeague}>
+                <DialogTrigger asChild>
+                  <Button className="bg-gradient-to-br from-purple-500 to-blue-600 text-white border-0 hover:from-purple-600 hover:to-blue-700">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Create League
+                  </Button>
+                </DialogTrigger>
+            <DialogContent className="sm:max-w-2xl bg-[#1C1E24] border border-[#2A2D36] text-white">
               <DialogHeader>
-                <DialogTitle>Create New League</DialogTitle>
-                <DialogDescription>Set up a new tournament league for players to compete in</DialogDescription>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
+                    <Trophy className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <DialogTitle className="text-xl font-bold">Create New League</DialogTitle>
+                    <DialogDescription className="text-gray-400">Set up a new tournament league for players to compete in</DialogDescription>
+                  </div>
+                </div>
               </DialogHeader>
-              <form onSubmit={handleCreateLeague} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+              <form onSubmit={handleCreateLeague} className="space-y-6">
+                <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="name">League Name</Label>
+                    <Label htmlFor="name" className="text-gray-300">League Name</Label>
                     <Input
                       id="name"
                       value={newLeague.name}
                       onChange={(e) => setNewLeague({ ...newLeague, name: e.target.value })}
                       placeholder="Winter Championship 2024"
+                      className="bg-[#0A0B0F] border-[#2A2D36] text-white placeholder:text-gray-500 focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500"
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="gameType">Game Type</Label>
+                    <Label htmlFor="gameType" className="text-gray-300">Game Type</Label>
                     <Select
                       value={newLeague.gameType}
                       onValueChange={(value) => setNewLeague({ ...newLeague, gameType: value })}
                     >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select game" />
+                      <SelectTrigger className="bg-[#0A0B0F] border-[#2A2D36] text-white">
+                        <SelectValue placeholder="Select a game" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="efootball">eFootball</SelectItem>
-                        <SelectItem value="fifa">FIFA</SelectItem>
-                        <SelectItem value="codm">CODM</SelectItem>
+                      <SelectContent className="bg-[#1C1E24] border-[#2A2D36] text-white">
+                        <SelectItem value="FIFA">FIFA</SelectItem>
+                        <SelectItem value="eFootball">eFootball</SelectItem>
+                        <SelectItem value="CODM">CODM</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea
-                    id="description"
-                    value={newLeague.description}
-                    onChange={(e) => setNewLeague({ ...newLeague, description: e.target.value })}
-                    placeholder="Describe the league, rules, and what makes it special..."
-                    rows={3}
-                  />
-                </div>
-
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="format">Tournament Format</Label>
-                    <Select
-                      value={newLeague.tournamentFormat}
-                      onValueChange={(value) => setNewLeague({ ...newLeague, tournamentFormat: value })}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="knockout">Knockout</SelectItem>
-                        <SelectItem value="group_stage">Group Stage</SelectItem>
-                        <SelectItem value="round_robin">Round Robin</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="maxParticipants">Max Participants</Label>
-                    <Input
-                      id="maxParticipants"
-                      type="number"
-                      value={newLeague.maxParticipants}
-                      onChange={(e) => setNewLeague({ ...newLeague, maxParticipants: Number.parseInt(e.target.value) })}
-                      min="4"
-                      max="128"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="entryFee">Entry Fee ($)</Label>
+                    <Label htmlFor="entryFee" className="text-gray-300">Entry Fee</Label>
                     <Input
                       id="entryFee"
                       type="number"
                       value={newLeague.entryFee}
-                      onChange={(e) => setNewLeague({ ...newLeague, entryFee: Number.parseFloat(e.target.value) })}
-                      min="0"
-                      step="0.01"
+                      onChange={(e) => setNewLeague({ ...newLeague, entryFee: Number(e.target.value) })}
+                      className="bg-[#0A0B0F] border-[#2A2D36] text-white"
+                      placeholder="25"
+                      required
                     />
                   </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="prizePool">Prize Pool ($)</Label>
+                    <Label htmlFor="prizePool" className="text-gray-300">Prize Pool</Label>
                     <Input
                       id="prizePool"
                       type="number"
                       value={newLeague.prizePool}
-                      onChange={(e) => setNewLeague({ ...newLeague, prizePool: Number.parseFloat(e.target.value) })}
-                      min="0"
-                      step="0.01"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="registrationStart">Registration Start</Label>
-                    <Input
-                      id="registrationStart"
-                      type="datetime-local"
-                      value={newLeague.registrationStart}
-                      onChange={(e) => setNewLeague({ ...newLeague, registrationStart: e.target.value })}
+                      onChange={(e) => setNewLeague({ ...newLeague, prizePool: Number(e.target.value) })}
+                      className="bg-[#0A0B0F] border-[#2A2D36] text-white"
+                      placeholder="1000"
                       required
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="registrationEnd">Registration End</Label>
+                    <Label htmlFor="maxParticipants" className="text-gray-300">Max Participants</Label>
                     <Input
-                      id="registrationEnd"
-                      type="datetime-local"
-                      value={newLeague.registrationEnd}
-                      onChange={(e) => setNewLeague({ ...newLeague, registrationEnd: e.target.value })}
+                      id="maxParticipants"
+                      type="number"
+                      value={newLeague.maxParticipants}
+                      onChange={(e) => setNewLeague({ ...newLeague, maxParticipants: Number(e.target.value) })}
+                      className="bg-[#0A0B0F] border-[#2A2D36] text-white"
+                      placeholder="32"
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="tournamentStart">Tournament Start</Label>
-                    <Input
-                      id="tournamentStart"
-                      type="datetime-local"
-                      value={newLeague.tournamentStart}
-                      onChange={(e) => setNewLeague({ ...newLeague, tournamentStart: e.target.value })}
-                      required
-                    />
+                    <Label htmlFor="format" className="text-gray-300">Tournament Format</Label>
+                    <Select
+                      value={newLeague.tournamentFormat}
+                      onValueChange={(value) => setNewLeague({ ...newLeague, tournamentFormat: value })}
+                    >
+                      <SelectTrigger className="bg-[#0A0B0F] border-[#2A2D36] text-white">
+                        <SelectValue placeholder="Select format" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-[#1C1E24] border-[#2A2D36] text-white">
+                        <SelectItem value="knockout">Single Elimination</SelectItem>
+                        <SelectItem value="double_elimination">Double Elimination</SelectItem>
+                        <SelectItem value="round_robin">Round Robin</SelectItem>
+                        <SelectItem value="group_stage">Group Stage</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
 
-                <div className="flex gap-3 pt-4">
-                  <Button type="button" variant="outline" onClick={() => setShowCreateLeague(false)} className="flex-1">
+                <div className="flex justify-end gap-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setShowCreateLeague(false)}
+                    className="bg-[#0A0B0F] border-[#2A2D36] text-white hover:bg-[#2A2D36]"
+                  >
                     Cancel
                   </Button>
-                  <Button type="submit" className="flex-1">
+                  <Button
+                    type="submit"
+                    className="bg-gradient-to-br from-purple-500 to-blue-600 text-white border-0 hover:from-purple-600 hover:to-blue-700"
+                  >
                     Create League
                   </Button>
                 </div>
@@ -397,60 +405,62 @@ export function LeagueManagement() {
           </Dialog>
         </div>
 
-        <TabsContent value="active">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Trophy className="h-5 w-5" />
-                Active Leagues
-              </CardTitle>
-              <CardDescription>Currently running and open for registration leagues</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {/* Search and Filters */}
-              <div className="flex gap-4 mb-6">
-                <div className="relative flex-1">
-                  <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    placeholder="Search leagues by name or game type..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-                <Button variant="outline">
-                  <Filter className="h-4 w-4 mr-2" />
-                  Filter
-                </Button>
+        <TabsContent value="active" className="mt-6">
+          <div className="rounded-xl border border-[#2A2D36] bg-[#0A0B0F] overflow-hidden p-6">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-yellow-500 to-amber-600 flex items-center justify-center">
+                <Trophy className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-white">Active Leagues</h3>
+                <p className="text-sm text-gray-400">Currently running and open for registration leagues</p>
+              </div>
+            </div>
+
+            {/* Search and Filters */}
+            <div className="flex gap-4 mb-6">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Input
+                  placeholder="Search leagues by name or game type..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 bg-[#1C1E24] border-[#2A2D36] text-white placeholder:text-gray-500 focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500"
+                />
+              </div>
+              <Button variant="outline" className="bg-[#1C1E24] border-[#2A2D36] text-gray-300 hover:bg-[#2A2D36] hover:text-purple-400">
+                <Filter className="h-4 w-4 mr-2" />
+                Filter
+              </Button>
               </div>
 
               {/* Leagues Table */}
-              <div className="rounded-md border">
+              <div className="rounded-xl border border-[#2A2D36] bg-[#0A0B0F] overflow-hidden">
                 <Table>
                   <TableHeader>
-                    <TableRow>
-                      <TableHead>League</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Participants</TableHead>
-                      <TableHead>Entry Fee</TableHead>
-                      <TableHead>Prize Pool</TableHead>
-                      <TableHead>Registration Ends</TableHead>
-                      <TableHead>Actions</TableHead>
+                    <TableRow className="border-b border-[#2A2D36] bg-[#1C1E24]">
+                      <TableHead className="text-gray-400">League</TableHead>
+                      <TableHead className="text-gray-400">Status</TableHead>
+                      <TableHead className="text-gray-400">Participants</TableHead>
+                      <TableHead className="text-gray-400">Entry Fee</TableHead>
+                      <TableHead className="text-gray-400">Prize Pool</TableHead>
+                      <TableHead className="text-gray-400">Registration Ends</TableHead>
+                      <TableHead className="text-gray-400">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {filteredLeagues
                       .filter((l) => l.status === "registration_open" || l.status === "in_progress")
                       .map((league) => (
-                        <TableRow key={league.id}>
+                        <TableRow key={league.id} className="border-b border-[#2A2D36] hover:bg-[#1C1E24] transition-colors">
                           <TableCell>
                             <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 rounded bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-sm">
+                              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-sm">
                                 {league.gameIcon}
                               </div>
                               <div>
-                                <div className="font-medium">{league.name}</div>
-                                <div className="text-sm text-muted-foreground">
+                                <div className="font-medium text-white">{league.name}</div>
+                                <div className="text-sm text-gray-400">
                                   {league.gameType} • {league.format}
                                 </div>
                               </div>
@@ -458,30 +468,42 @@ export function LeagueManagement() {
                           </TableCell>
                           <TableCell>{getStatusBadge(league.status)}</TableCell>
                           <TableCell>
-                            <div className="text-sm">
+                            <div className="text-sm text-gray-300">
                               {league.participants}/{league.maxParticipants}
-                              <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                              <div className="w-full bg-[#2A2D36] rounded-full h-1.5 mt-1">
                                 <div
-                                  className="bg-blue-600 h-1.5 rounded-full"
+                                  className="bg-gradient-to-r from-blue-500 to-indigo-600 h-1.5 rounded-full"
                                   style={{ width: `${(league.participants / league.maxParticipants) * 100}%` }}
                                 ></div>
                               </div>
                             </div>
                           </TableCell>
-                          <TableCell>{formatCurrency(league.entryFee)}</TableCell>
-                          <TableCell className="font-medium text-green-600">
+                          <TableCell className="text-purple-400 font-medium">{formatCurrency(league.entryFee)}</TableCell>
+                          <TableCell className="font-medium text-emerald-400">
                             {formatCurrency(league.prizePool)}
                           </TableCell>
-                          <TableCell>{formatDate(league.registrationEnd)}</TableCell>
+                          <TableCell className="text-gray-300">{formatDate(league.registrationEnd)}</TableCell>
                           <TableCell>
                             <div className="flex gap-2">
-                              <Button size="sm" variant="outline">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="bg-[#1C1E24] border-[#2A2D36] text-gray-300 hover:bg-[#2A2D36] hover:text-purple-400"
+                              >
                                 <Eye className="h-4 w-4" />
                               </Button>
-                              <Button size="sm" variant="outline">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="bg-[#1C1E24] border-[#2A2D36] text-gray-300 hover:bg-[#2A2D36] hover:text-purple-400"
+                              >
                                 <Edit className="h-4 w-4" />
                               </Button>
-                              <Button size="sm" variant="outline">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="bg-[#1C1E24] border-[#2A2D36] text-gray-300 hover:bg-[#2A2D36] hover:text-purple-400"
+                              >
                                 <Settings className="h-4 w-4" />
                               </Button>
                             </div>
@@ -491,40 +513,46 @@ export function LeagueManagement() {
                   </TableBody>
                 </Table>
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+            </div>
+          </TabsContent>
 
-        <TabsContent value="upcoming">
-          <Card>
-            <CardHeader>
-              <CardTitle>Upcoming Leagues</CardTitle>
-              <CardDescription>Leagues scheduled to start soon</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center py-8 text-muted-foreground">
-                <Calendar className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                <p>No upcoming leagues scheduled</p>
+          <TabsContent value="upcoming" className="mt-6">
+            <div className="rounded-xl border border-[#2A2D36] bg-[#0A0B0F] overflow-hidden p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                  <Calendar className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white">Upcoming Leagues</h3>
+                  <p className="text-sm text-gray-400">Leagues scheduled to start soon</p>
+                </div>
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+              <div className="text-center py-12">
+                <Calendar className="h-16 w-16 mx-auto mb-4 text-gray-500 opacity-30" />
+                <p className="text-gray-400">No upcoming leagues scheduled</p>
+              </div>
+            </div>
+          </TabsContent>
 
-        <TabsContent value="completed">
-          <Card>
-            <CardHeader>
-              <CardTitle>Completed Leagues</CardTitle>
-              <CardDescription>Past tournaments and their results</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center py-8 text-muted-foreground">
-                <Trophy className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                <p>Completed leagues will appear here</p>
+          <TabsContent value="completed" className="mt-6">
+            <div className="rounded-xl border border-[#2A2D36] bg-[#0A0B0F] overflow-hidden p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+                  <Trophy className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white">Completed Leagues</h3>
+                  <p className="text-sm text-gray-400">Past tournaments and their results</p>
+                </div>
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+              <div className="text-center py-12">
+                <Trophy className="h-16 w-16 mx-auto mb-4 text-gray-500 opacity-30" />
+                <p className="text-gray-400">Completed leagues will appear here</p>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   )
 }

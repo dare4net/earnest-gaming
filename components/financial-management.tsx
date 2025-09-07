@@ -79,18 +79,22 @@ export function FinancialManagement() {
     switch (status) {
       case "completed":
         return (
-          <Badge variant="secondary" className="bg-green-100 text-green-800">
+          <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
             Completed
           </Badge>
         )
       case "pending":
         return (
-          <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+          <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
             Pending
           </Badge>
         )
       case "flagged":
-        return <Badge variant="destructive">Flagged</Badge>
+        return (
+          <Badge variant="secondary" className="bg-red-500/20 text-red-400 border-red-500/30">
+            Flagged
+          </Badge>
+        )
       default:
         return null
     }
@@ -118,113 +122,127 @@ export function FinancialManagement() {
     <div className="space-y-6">
       {/* Financial Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <DollarSign className="h-4 w-4 text-green-600" />
-              <span className="text-sm text-muted-foreground">Total Revenue</span>
+        <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+              <DollarSign className="h-5 w-5 text-white" />
             </div>
-            <div className="text-2xl font-bold">$125,430</div>
-            <div className="text-xs text-green-600">+12.5% this month</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <TrendingUp className="h-4 w-4 text-blue-600" />
-              <span className="text-sm text-muted-foreground">Total Deposits</span>
+            <div>
+              <p className="text-sm text-gray-400">Total Revenue</p>
+              <p className="text-2xl font-bold text-white">$125,430</p>
+              <p className="text-xs text-emerald-500">+12.5% this month</p>
             </div>
-            <div className="text-2xl font-bold">$89,250</div>
-            <div className="text-xs text-blue-600">234 transactions</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <TrendingDown className="h-4 w-4 text-red-600" />
-              <span className="text-sm text-muted-foreground">Total Withdrawals</span>
+          </div>
+        </div>
+        <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+              <TrendingUp className="h-5 w-5 text-white" />
             </div>
-            <div className="text-2xl font-bold">$67,890</div>
-            <div className="text-xs text-red-600">156 transactions</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <AlertTriangle className="h-4 w-4 text-yellow-600" />
-              <span className="text-sm text-muted-foreground">Pending Review</span>
+            <div>
+              <p className="text-sm text-gray-400">Total Deposits</p>
+              <p className="text-2xl font-bold text-white">$89,250</p>
+              <p className="text-xs text-blue-500">234 transactions</p>
             </div>
-            <div className="text-2xl font-bold">$12,450</div>
-            <div className="text-xs text-yellow-600">8 transactions</div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
+        <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-pink-600 flex items-center justify-center shadow-lg shadow-red-500/20">
+              <TrendingDown className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <p className="text-sm text-gray-400">Total Withdrawals</p>
+              <p className="text-2xl font-bold text-white">$67,890</p>
+              <p className="text-xs text-red-500">156 transactions</p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-500 to-orange-600 flex items-center justify-center shadow-lg shadow-yellow-500/20">
+              <AlertTriangle className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <p className="text-sm text-gray-400">Pending Review</p>
+              <p className="text-2xl font-bold text-white">$12,450</p>
+              <p className="text-xs text-yellow-500">8 transactions</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Transaction Management */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <DollarSign className="h-5 w-5" />
-            Financial Transactions
-          </CardTitle>
-          <CardDescription>Monitor and manage all financial transactions</CardDescription>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-6">
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
+              <DollarSign className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-white">Financial Transactions</h2>
+              <p className="text-sm text-gray-400">Monitor and manage all financial transactions</p>
+            </div>
+          </div>
+        </div>
+        <div className="space-y-6">
           {/* Search and Filters */}
-          <div className="flex gap-4 mb-6">
+          <div className="flex gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               <Input
                 placeholder="Search transactions by ID, user, or type..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 bg-[#0A0B0F] border-[#2A2D36] text-white placeholder:text-gray-500 focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500"
               />
             </div>
-            <Button variant="outline">
+            <Button variant="outline" className="bg-[#0A0B0F] border-[#2A2D36] text-white hover:bg-[#2A2D36] hover:text-purple-400">
               <Filter className="h-4 w-4 mr-2" />
               Filter
             </Button>
           </div>
 
           {/* Transactions Table */}
-          <div className="rounded-md border">
+          <div className="rounded-xl border border-[#2A2D36] bg-[#0A0B0F] overflow-hidden">
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>Transaction ID</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>User</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead>Method</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Actions</TableHead>
+                <TableRow className="border-b border-[#2A2D36] bg-[#1C1E24]">
+                  <TableHead className="text-gray-400">Transaction ID</TableHead>
+                  <TableHead className="text-gray-400">Type</TableHead>
+                  <TableHead className="text-gray-400">User</TableHead>
+                  <TableHead className="text-gray-400">Amount</TableHead>
+                  <TableHead className="text-gray-400">Method</TableHead>
+                  <TableHead className="text-gray-400">Status</TableHead>
+                  <TableHead className="text-gray-400">Date</TableHead>
+                  <TableHead className="text-gray-400">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredTransactions.map((transaction) => (
-                  <TableRow key={transaction.id}>
-                    <TableCell className="font-medium">{transaction.id}</TableCell>
+                  <TableRow key={transaction.id} className="border-b border-[#2A2D36] bg-[#0A0B0F] hover:bg-[#1C1E24] transition-colors">
+                    <TableCell className="font-medium text-gray-300">{transaction.id}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        {getTransactionIcon(transaction.type)}
-                        <span className="capitalize">{transaction.type}</span>
+                        <div className="w-8 h-8 rounded-lg bg-[#1C1E24] flex items-center justify-center">
+                          {getTransactionIcon(transaction.type)}
+                        </div>
+                        <span className="capitalize text-gray-300">{transaction.type}</span>
                       </div>
                     </TableCell>
-                    <TableCell>{transaction.user}</TableCell>
+                    <TableCell className="text-gray-300">{transaction.user}</TableCell>
                     <TableCell>
-                      <span className={transaction.amount > 0 ? "text-green-600" : "text-red-600"}>
+                      <span className={transaction.amount > 0 ? "text-emerald-400" : "text-red-400 font-medium"}>
                         {transaction.amount > 0 ? "+" : ""}
                         {formatCurrency(transaction.amount)}
                       </span>
                     </TableCell>
-                    <TableCell>{transaction.method}</TableCell>
+                    <TableCell className="text-gray-300">{transaction.method}</TableCell>
                     <TableCell>{getStatusBadge(transaction.status)}</TableCell>
-                    <TableCell>{formatTime(transaction.timestamp)}</TableCell>
+                    <TableCell className="text-gray-300">{formatTime(transaction.timestamp)}</TableCell>
                     <TableCell>
                       <div className="flex gap-2">
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" className="bg-[#1C1E24] border-[#2A2D36] text-gray-300 hover:bg-[#2A2D36] hover:text-purple-400">
                           <Eye className="h-4 w-4" />
                         </Button>
                         {transaction.status === "flagged" && (
@@ -239,8 +257,8 @@ export function FinancialManagement() {
               </TableBody>
             </Table>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }

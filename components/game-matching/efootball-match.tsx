@@ -1,7 +1,9 @@
 import { useState } from "react"
-import { Gamepad2 } from "lucide-react"
+import { Gamepad2, ArrowLeft } from "lucide-react"
 import { MatchBase } from "./match-base"
 import { WagerControls } from "./wager-controls"
+import { Button } from "@/components/ui/button"
+import { MatchConfirmation } from "./match-confirmation"
 
 interface EFootballMatchProps {
   onClose?: () => void
@@ -10,14 +12,43 @@ interface EFootballMatchProps {
 export function EFootballMatch({ onClose }: EFootballMatchProps) {
   const [wagerAmount, setWagerAmount] = useState([25])
   const [isSearching, setIsSearching] = useState(false)
+  const [showConfirmation, setShowConfirmation] = useState(false)
 
-  const handleFindMatch = () => {
-    setIsSearching(true)
+  const handleProceed = () => {
+    setShowConfirmation(true);
+  }
+
+  const handleConfirm = () => {
+    setIsSearching(true);
     // TODO: Implement matchmaking logic
     setTimeout(() => {
-      setIsSearching(false)
-      // Handle match found
-    }, 3000)
+      setIsSearching(false);
+      // Redirect to match page with generated ID
+      window.location.href = `/match/${Date.now()}`;
+    }, 3000);
+  }
+
+  if (showConfirmation) {
+    return (
+      <div className="container mx-auto px-4 py-8 max-w-2xl">
+        <div className="mb-6">
+          <Button
+            variant="ghost"
+            onClick={() => setShowConfirmation(false)}
+            className="text-gray-400 hover:text-white"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Match Options
+          </Button>
+        </div>
+        <MatchConfirmation
+          game="efootball"
+          amount={wagerAmount[0]}
+          onConfirm={handleConfirm}
+          isSearching={isSearching}
+        />
+      </div>
+    )
   }
 
   const matchInfo = (
@@ -61,7 +92,7 @@ export function EFootballMatch({ onClose }: EFootballMatchProps) {
         minAmount={5}
         maxAmount={500}
         game="efootball"
-        onClose={onClose}
+        onClose={() => handleProceed()}
       />
     </MatchBase>
   )

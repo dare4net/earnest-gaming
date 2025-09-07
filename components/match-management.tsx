@@ -59,21 +59,29 @@ export function MatchManagement() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "active":
-        return <Badge variant="default">Active</Badge>
+        return (
+          <Badge variant="secondary" className="bg-blue-500/20 text-blue-400 border-blue-500/30">
+            Active
+          </Badge>
+        )
       case "verification":
         return (
-          <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+          <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
             Verification
           </Badge>
         )
       case "completed":
         return (
-          <Badge variant="secondary" className="bg-green-100 text-green-800">
+          <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
             Completed
           </Badge>
         )
       case "disputed":
-        return <Badge variant="destructive">Disputed</Badge>
+        return (
+          <Badge variant="secondary" className="bg-red-500/20 text-red-400 border-red-500/30">
+            Disputed
+          </Badge>
+        )
       default:
         return null
     }
@@ -101,116 +109,130 @@ export function MatchManagement() {
     <div className="space-y-6">
       {/* Match Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Gamepad2 className="h-4 w-4 text-blue-600" />
-              <span className="text-sm text-muted-foreground">Active Matches</span>
+        <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+              <Gamepad2 className="h-5 w-5 text-white" />
             </div>
-            <div className="text-2xl font-bold">156</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Clock className="h-4 w-4 text-yellow-600" />
-              <span className="text-sm text-muted-foreground">In Verification</span>
+            <div>
+              <p className="text-sm text-gray-400">Active Matches</p>
+              <p className="text-2xl font-bold text-white">156</p>
             </div>
-            <div className="text-2xl font-bold">23</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <CheckCircle className="h-4 w-4 text-green-600" />
-              <span className="text-sm text-muted-foreground">Completed Today</span>
+          </div>
+        </div>
+        <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-500 to-orange-600 flex items-center justify-center shadow-lg shadow-yellow-500/20">
+              <Clock className="h-5 w-5 text-white" />
             </div>
-            <div className="text-2xl font-bold">89</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <AlertTriangle className="h-4 w-4 text-red-600" />
-              <span className="text-sm text-muted-foreground">Disputed</span>
+            <div>
+              <p className="text-sm text-gray-400">In Verification</p>
+              <p className="text-2xl font-bold text-white">23</p>
             </div>
-            <div className="text-2xl font-bold">8</div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
+        <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+              <CheckCircle className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <p className="text-sm text-gray-400">Completed Today</p>
+              <p className="text-2xl font-bold text-white">89</p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-red-500 to-pink-600 flex items-center justify-center shadow-lg shadow-red-500/20">
+              <AlertTriangle className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <p className="text-sm text-gray-400">Disputed</p>
+              <p className="text-2xl font-bold text-white">8</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Match Management */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Gamepad2 className="h-5 w-5" />
-            Match Management
-          </CardTitle>
-          <CardDescription>Monitor and manage ongoing matches</CardDescription>
-        </CardHeader>
-        <CardContent>
+      <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-6">
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+              <Gamepad2 className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-white">Match Management</h2>
+              <p className="text-sm text-gray-400">Monitor and manage ongoing matches</p>
+            </div>
+          </div>
+        </div>
+        <div className="space-y-6">
           {/* Search and Filters */}
-          <div className="flex gap-4 mb-6">
+          <div className="flex gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               <Input
                 placeholder="Search matches by ID, player, or game..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 bg-[#0A0B0F] border-[#2A2D36] text-white placeholder:text-gray-500 focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500"
               />
             </div>
-            <Button variant="outline">
+            <Button variant="outline" className="bg-[#0A0B0F] border-[#2A2D36] text-white hover:bg-[#2A2D36] hover:text-purple-400">
               <Filter className="h-4 w-4 mr-2" />
               Filter
             </Button>
           </div>
 
           {/* Matches Table */}
-          <div className="rounded-md border">
+          <div className="rounded-xl border border-[#2A2D36] bg-[#0A0B0F] overflow-hidden">
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>Match ID</TableHead>
-                  <TableHead>Game</TableHead>
-                  <TableHead>Players</TableHead>
-                  <TableHead>Wager</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Start Time</TableHead>
-                  <TableHead>Actions</TableHead>
+                <TableRow className="border-b border-[#2A2D36] bg-[#1C1E24]">
+                  <TableHead className="text-gray-400">Match ID</TableHead>
+                  <TableHead className="text-gray-400">Game</TableHead>
+                  <TableHead className="text-gray-400">Players</TableHead>
+                  <TableHead className="text-gray-400">Wager</TableHead>
+                  <TableHead className="text-gray-400">Status</TableHead>
+                  <TableHead className="text-gray-400">Start Time</TableHead>
+                  <TableHead className="text-gray-400">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredMatches.map((match) => (
-                  <TableRow key={match.id}>
-                    <TableCell className="font-medium">{match.id}</TableCell>
+                  <TableRow key={match.id} className="border-b border-[#2A2D36] bg-[#0A0B0F] hover:bg-[#1C1E24] transition-colors">
+                    <TableCell className="font-medium text-gray-300">{match.id}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <span className="text-lg">{match.gameIcon}</span>
-                        <span>{match.game}</span>
+                        <div className="w-8 h-8 rounded-lg bg-[#1C1E24] flex items-center justify-center text-lg">
+                          {match.gameIcon}
+                        </div>
+                        <span className="text-gray-300">{match.game}</span>
                       </div>
                     </TableCell>
                     <TableCell>
-                      <div className="text-sm">
+                      <div className="text-sm text-gray-300">
                         {match.players.join(" vs ")}
                         {match.winner && (
-                          <div className="text-xs text-green-600 flex items-center gap-1 mt-1">
+                          <div className="text-xs text-emerald-400 flex items-center gap-1 mt-1">
                             <Trophy className="h-3 w-3" />
                             Winner: {match.winner}
                           </div>
                         )}
                       </div>
                     </TableCell>
-                    <TableCell>{formatCurrency(match.wagerAmount)}</TableCell>
+                    <TableCell className="text-purple-400 font-medium">{formatCurrency(match.wagerAmount)}</TableCell>
                     <TableCell>{getStatusBadge(match.status)}</TableCell>
-                    <TableCell>{formatTime(match.startTime)}</TableCell>
+                    <TableCell className="text-gray-300">{formatTime(match.startTime)}</TableCell>
                     <TableCell>
                       <div className="flex gap-2">
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" className="bg-[#1C1E24] border-[#2A2D36] text-gray-300 hover:bg-[#2A2D36] hover:text-purple-400">
                           <Eye className="h-4 w-4" />
                         </Button>
                         {match.status === "disputed" && (
-                          <Button size="sm" variant="outline">
+                          <Button size="sm" variant="outline" className="bg-[#1C1E24] border-[#2A2D36] text-gray-300 hover:bg-[#2A2D36] hover:text-red-400">
                             <AlertTriangle className="h-4 w-4" />
                           </Button>
                         )}
@@ -221,8 +243,8 @@ export function MatchManagement() {
               </TableBody>
             </Table>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }
