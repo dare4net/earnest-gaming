@@ -3,12 +3,19 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { auth } from '@/lib/auth-api';
 
+interface AuthResponse {
+  success: boolean;
+  message?: string;
+  user?: any;
+  token?: string;
+}
+
 interface AuthContextType {
   user: any | null;
   loading: boolean;
   error: string | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (username: string, email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<AuthResponse>;
+  register: (username: string, email: string, password: string, selectedGames: string[]) => Promise<AuthResponse>;
   logout: () => Promise<void>;
   clearError: () => void;
 }
@@ -33,27 +40,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string): Promise<AuthResponse> => {
     try {
       setError(null);
       const { user, token } = await auth.login({ email, password });
       localStorage.setItem('token', token);
       setUser(user);
+      return { success: true, user, token };
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
-      throw err;
+      const message = err instanceof Error ? err.message : 'Login failed';
+      setError(message);
+      return { success: false, message };
     }
   };
 
-  const register = async (username: string, email: string, password: string) => {
+  const register = async (
+    username: string, 
+    email: string, 
+    password: string, 
+    selectedGames: string[]
+  ): Promise<AuthResponse> => {
     try {
       setError(null);
-      const { user, token } = await auth.register({ username, email, password });
+      const { user, token } = await auth.register({ 
+        username, 
+        email, 
+        password,
+        selectedGames 
+      });
       localStorage.setItem('token', token);
       setUser(user);
+      return { success: true, user, token };
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Registration failed');
-      throw err;
+      const message = err instanceof Error ? err.message : 'Registration failed';
+      setError(message);
+      return { success: false, message };
     }
   };
 

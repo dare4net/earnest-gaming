@@ -177,6 +177,17 @@ export default function HomePage() {
         </div>
       </section>
 
+            {/* Top Players Section */}
+      <section className="py-12 sm:py-20 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-8 sm:mb-12">
+            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 sm:mb-4">Top Players</h3>
+            <p className="text-base sm:text-lg text-muted-foreground px-2">See who's dominating the leaderboards right now</p>
+          </div>
+          <LiveLeaderboard />
+        </div>
+      </section>
+
       {/* Tournament Leagues Section */}
       <section className="py-12 sm:py-20 px-4">
         <div className="container mx-auto max-w-6xl">
@@ -343,16 +354,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Top Players Section */}
-      <section className="py-12 sm:py-20 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-8 sm:mb-12">
-            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 sm:mb-4">Top Players</h3>
-            <p className="text-base sm:text-lg text-muted-foreground px-2">See who's dominating the leaderboards right now</p>
-          </div>
-          <LiveLeaderboard />
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-12 sm:py-20 px-4 bg-primary/5">

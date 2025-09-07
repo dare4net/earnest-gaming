@@ -123,3 +123,52 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Responsive text sizing */
+@media screen and (min-width: 1024px) {
+  .responsive-text {
+    font-size: 1rem; /* 16px */
+  }
+  .responsive-text-lg {
+    font-size: 1.125rem; /* 18px */
+  }
+  .responsive-text-xl {
+    font-size: 1.25rem; /* 20px */
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .responsive-text {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .responsive-text-lg {
+    font-size: 1rem; /* 16px */
+  }
+  .responsive-text-xl {
+    font-size: 1.125rem; /* 18px */
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .responsive-text {
+    font-size: 0.875rem; /* 14px */
+  }
+  .responsive-text-lg {
+    font-size: 0.9375rem; /* 15px */
+  }
+  .responsive-text-xl {
+    font-size: 1rem; /* 16px */
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .responsive-text {
+    font-size: 0.8125rem; /* 13px */
+  }
+  .responsive-text-lg {
+    font-size: 0.875rem; /* 14px */
+  }
+  .responsive-text-xl {
+    font-size: 0.9375rem; /* 15px */
+  }
+}

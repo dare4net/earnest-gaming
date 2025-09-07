@@ -3,13 +3,15 @@
 import type React from "react"
 
 import { useState } from "react"
+import { AlertTitle } from "@/components/ui/alert"
+import { useRouter } from "next/navigation"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Gamepad2, Mail, Lock, User, AlertCircle } from "lucide-react"
+import { Gamepad2, Mail, Lock, User, AlertCircle, Loader2 } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { useAuth } from "@/lib/auth-context"
 
@@ -21,6 +23,7 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthModalProps) {
+  const router = useRouter();
   const { login, register, error, clearError } = useAuth();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -31,6 +34,10 @@ export function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthModalProp
     selectedGames: [] as string[],
   });
   const [validationError, setValidationError] = useState<string | null>(null);
+  const [serverMessage, setServerMessage] = useState<{
+    type: 'success' | 'error';
+    message: string;
+  } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,18 +51,51 @@ export function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthModalProp
 
     try {
       setLoading(true);
+      setServerMessage(null);
+
       if (mode === "login") {
-        await login(formData.email, formData.password);
+        const response = await login(formData.email, formData.password);
+        if (response?.success) {
+          setServerMessage({ type: 'success', message: 'Login successful!' });
+          // Wait briefly to show success message
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          router.push('/profile');
+          onClose();
+        } else {
+          setServerMessage({ 
+            type: 'error', 
+            message: response?.message || 'Invalid credentials' 
+          });
+        }
       } else if (mode === "game-selection") {
         if (formData.selectedGames.length === 0) {
           setValidationError("Please select at least one game");
           return;
         }
-        await register(formData.username, formData.email, formData.password, formData.selectedGames);
+        const response = await register(
+          formData.username, 
+          formData.email, 
+          formData.password, 
+          formData.selectedGames
+        );
+        if (response?.success) {
+          setServerMessage({ type: 'success', message: 'Registration successful!' });
+          // Wait briefly to show success message
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          router.push('/profile');
+          onClose();
+        } else {
+          setServerMessage({ 
+            type: 'error', 
+            message: response?.message || 'Registration failed' 
+          });
+        }
       }
-      onClose();
-    } catch (err) {
-      // Error is handled by auth context
+    } catch (err: any) {
+      setServerMessage({ 
+        type: 'error', 
+        message: err.message || 'An unexpected error occurred' 
+      });
     } finally {
       setLoading(false);
     }
@@ -126,8 +166,31 @@ export function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthModalProp
                     </div>
                   </div>
 
-                  <Button type="submit" className="w-full">
-                    Login to GameMatch
+                  {(serverMessage || error) && (
+                    <Alert variant={serverMessage?.type === 'success' ? 'default' : 'destructive'}>
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertTitle>
+                        {serverMessage?.type === 'success' ? 'Success' : 'Error'}
+                      </AlertTitle>
+                      <AlertDescription>
+                        {serverMessage?.message || error}
+                      </AlertDescription>
+                    </Alert>
+                  )}
+
+                  <Button 
+                    type="submit" 
+                    className="w-full" 
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <div className="flex items-center gap-2">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Logging in...
+                      </div>
+                    ) : (
+                      "Login to GameMatch"
+                    )}
                   </Button>
                 </form>
               </CardContent>

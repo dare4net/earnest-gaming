@@ -9,6 +9,7 @@ interface RegisterData {
   username: string;
   email: string;
   password: string;
+  selectedGames: string[];
 }
 
 export const auth = {
