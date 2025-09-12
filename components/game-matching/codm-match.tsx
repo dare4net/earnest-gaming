@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { MatchBase } from "./match-base"
 import { WagerControls } from "./wager-controls"
 import { MatchConfirmation } from "./match-confirmation"
+import { api } from "@/lib/api"
 
 interface CodmMatchProps {
   onClose?: () => void
@@ -28,12 +29,31 @@ export function CodmMatch({ onClose }: CodmMatchProps) {
 
   const handleConfirm = () => {
     setIsSearching(true);
-    // TODO: Implement matchmaking logic
-    setTimeout(() => {
-      setIsSearching(false);
-      // Redirect to match page with generated ID
-      window.location.href = `/match/${Date.now()}`;
-    }, 3000);
+    (async () => {
+      try {
+        // 1) Create the match (game is string name)
+        const create = await api.createMatch({
+          game: 'CODM',
+          entryFee: Number(wagerAmount[0]),
+          format: '1v1',
+          rules: ['Best of 3'],
+          matchType: 'regular'
+        });
+
+        const matchId = create?.match?._id || create?._id;
+        if (!matchId) throw new Error('Failed to create match');
+
+        // 2) Optionally fetch potential opponents (random online users)
+        await api.searchOpponent(matchId);
+
+        // 3) Navigate to match page
+        window.location.href = `/match/${matchId}`;
+      } catch (e) {
+        console.error(e);
+        alert((e as Error).message || 'Failed to create match');
+        setIsSearching(false);
+      }
+    })();
   }
 
   if (showConfirmation) {
@@ -65,8 +85,8 @@ export function CodmMatch({ onClose }: CodmMatchProps) {
 
   const matchInfo = (
     <div className="bg-muted/50 rounded-lg p-4 space-y-2">
-      <h4 className="font-medium">Match Details</h4>
-      <div className="grid grid-cols-2 gap-4 text-sm">
+      <h4 className="font-medium responsive-text-lg">Match Details</h4>
+      <div className="grid grid-cols-2 gap-4 responsive-text">
         <div>
           <span className="text-muted-foreground">Game:</span>
           <span className="ml-2">Call of Duty Mobile</span>
@@ -96,7 +116,7 @@ export function CodmMatch({ onClose }: CodmMatchProps) {
     >
       {/* Game Mode Selection */}
       <div className="bg-[#15171B] rounded-xl border border-[#2A2D36] p-4">
-        <Label className="text-lg font-bold text-white block mb-4">Game Mode</Label>
+        <Label className="responsive-text-lg font-bold text-white block mb-4">Game Mode</Label>
         <Select value={gameMode} onValueChange={setGameMode}>
           <SelectTrigger className="h-12 bg-[#1C1E24] border-[#2A2D36] text-white">
             <SelectValue placeholder="Select CODM game mode" />
@@ -113,7 +133,7 @@ export function CodmMatch({ onClose }: CodmMatchProps) {
       {/* Ammunition Type */}
       <div className="bg-[#15171B] rounded-xl border border-[#2A2D36] p-4">
         <div className="flex items-center gap-2 mb-4">
-          <Label className="text-lg font-bold text-white">Ammunition Type</Label>
+          <Label className="responsive-text-lg font-bold text-white">Ammunition Type</Label>
           <div className="px-2 py-1 rounded-full bg-[#1C1E24] border border-[#2A2D36] text-xs font-medium text-emerald-500">
             Required
           </div>
@@ -151,7 +171,7 @@ export function CodmMatch({ onClose }: CodmMatchProps) {
             onCheckedChange={(checked) => setHasAmmoConfirmed(checked === true)}
             className="mt-1 bg-[#1C1E24] border-[#2A2D36] data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500"
           />
-          <Label htmlFor="ammo-confirm" className="text-sm text-gray-400">
+          <Label htmlFor="ammo-confirm" className="responsive-text text-gray-400">
             I confirm that I have the selected ammunition type in my CODM profile and understand that mismatched ammo
             will cancel the match.
           </Label>
@@ -175,7 +195,7 @@ export function CodmMatch({ onClose }: CodmMatchProps) {
       />
 
       {!canSearch && (
-        <div className="text-center text-sm text-muted-foreground">
+        <div className="text-center responsive-text text-muted-foreground">
           Please complete all fields above to find a match
         </div>
       )}

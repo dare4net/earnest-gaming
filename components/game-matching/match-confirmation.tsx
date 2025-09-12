@@ -58,8 +58,8 @@ export function MatchConfirmation({ game, amount, gameMode, ammoType, onConfirm,
             <Info className="h-5 w-5 text-white" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">Match Details Confirmation</h2>
-            <p className="text-gray-400 text-sm mt-1">Please review your match details before proceeding</p>
+            <h2 className="responsive-text-xl font-bold text-white">Match Details Confirmation</h2>
+            <p className="text-gray-400 responsive-text mt-1">Please review your match details before proceeding</p>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@ export function MatchConfirmation({ game, amount, gameMode, ammoType, onConfirm,
         {/* Match Details Summary */}
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-[#15171B] rounded-xl border border-[#2A2D36] p-4">
-            <span className="text-sm text-gray-400 block mb-1">Game</span>
+            <span className="responsive-text text-gray-400 block mb-1">Game</span>
             <div className="flex items-center gap-2">
               <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${config.color} flex items-center justify-center relative overflow-hidden`}>
                 <Image
@@ -78,26 +78,26 @@ export function MatchConfirmation({ game, amount, gameMode, ammoType, onConfirm,
                   className="object-cover"
                 />
               </div>
-              <span className="text-white font-medium">{game?.toUpperCase()}</span>
+              <span className="text-white font-medium responsive-text">{game?.toUpperCase()}</span>
             </div>
           </div>
           <div className="bg-[#15171B] rounded-xl border border-[#2A2D36] p-4">
-            <span className="text-sm text-gray-400 block mb-1">Game Mode</span>
-            <span className="text-white font-medium">{gameMode?.replace("-", " ") || "Standard"}</span>
+            <span className="responsive-text text-gray-400 block mb-1">Game Mode</span>
+            <span className="text-white font-medium responsive-text">{gameMode?.replace("-", " ") || "Standard"}</span>
           </div>
           {ammoType && (
             <div className="col-span-2 bg-[#15171B] rounded-xl border border-[#2A2D36] p-4">
-              <span className="text-sm text-gray-400 block mb-1">Ammunition Type</span>
-              <span className="text-white font-medium">{ammoType.replace("-", " ")}</span>
+              <span className="responsive-text text-gray-400 block mb-1">Ammunition Type</span>
+              <span className="text-white font-medium responsive-text">{ammoType.replace("-", " ")}</span>
             </div>
           )}
           <div className="bg-[#15171B] rounded-xl border border-[#2A2D36] p-4">
-            <span className="text-sm text-gray-400 block mb-1">Format</span>
-            <span className="text-white font-medium">1v1</span>
+            <span className="responsive-text text-gray-400 block mb-1">Format</span>
+            <span className="text-white font-medium responsive-text">1v1</span>
           </div>
           <div className="bg-[#15171B] rounded-xl border border-[#2A2D36] p-4">
-            <span className="text-sm text-gray-400 block mb-1">Match Duration</span>
-            <span className="text-white font-medium">~{game === "codm" ? "8" : game === "fifa" ? "12" : "15"} min</span>
+            <span className="responsive-text text-gray-400 block mb-1">Match Duration</span>
+            <span className="text-white font-medium responsive-text">~{game === "codm" ? "8" : game === "fifa" ? "12" : "15"} min</span>
           </div>
         </div>
 
@@ -105,25 +105,25 @@ export function MatchConfirmation({ game, amount, gameMode, ammoType, onConfirm,
         <div className="bg-[#15171B] rounded-xl border border-[#2A2D36] p-4">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-sm text-gray-400 block mb-1">Wager Amount</span>
-              <span className="text-2xl font-bold bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
+              <span className="responsive-text text-gray-400 block mb-1">Wager Amount</span>
+              <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
                 ₦{amount.toLocaleString()}
               </span>
             </div>
             <div className="flex items-center gap-2 bg-[#1C1E24] px-3 py-1.5 rounded-lg border border-[#2A2D36]">
               <Wallet className="h-4 w-4 text-emerald-500" />
-              <span className="text-sm text-gray-400">Balance: ₦150,000</span>
+              <span className="responsive-text text-gray-400">Balance: ₦150,000</span>
             </div>
           </div>
         </div>
 
         {/* Match Rules */}
         <div className="bg-[#15171B] rounded-xl border border-[#2A2D36] p-4">
-          <h4 className="font-medium mb-3 flex items-center gap-2 text-white">
+          <h4 className="font-medium mb-3 flex items-center gap-2 text-white responsive-text">
             <Medal className="h-4 w-4 text-emerald-500" />
             Match Rules
           </h4>
-          <ul className="space-y-2 text-sm text-gray-400">
+          <ul className="space-y-2 responsive-text text-gray-400">
             <li className="flex items-center gap-2">
               <div className="w-1 h-1 rounded-full bg-emerald-500"></div>
               Screenshots required for match verification
@@ -149,7 +149,7 @@ export function MatchConfirmation({ game, amount, gameMode, ammoType, onConfirm,
         <div className="bg-[#231F0E] border border-yellow-500/20 rounded-xl p-4">
           <div className="flex items-start gap-3">
             <AlertTriangle className="h-5 w-5 text-yellow-500 mt-0.5 flex-shrink-0" />
-            <div className="text-sm text-yellow-100/90">
+            <div className="responsive-text text-yellow-100/90">
               Once you proceed, the wager amount will be held from your balance until the match is completed.
               Make sure you have reviewed all details carefully.
             </div>
@@ -160,7 +160,7 @@ export function MatchConfirmation({ game, amount, gameMode, ammoType, onConfirm,
         <Button
           onClick={onConfirm}
           disabled={isSearching}
-          className={`w-full h-12 text-lg font-medium rounded-xl ${
+          className={`w-full h-12 responsive-text-lg font-medium rounded-xl ${
             isSearching
               ? 'bg-[#2A2D36] text-gray-400'
               : 'bg-gradient-to-r from-emerald-500 to-blue-600 text-white hover:from-emerald-600 hover:to-blue-700'
@@ -182,7 +182,7 @@ export function MatchConfirmation({ game, amount, gameMode, ammoType, onConfirm,
         {/* Search Animation */}
         {isSearching && (
           <div className="text-center space-y-3">
-            <div className="text-sm text-gray-400">
+            <div className="responsive-text text-gray-400">
               Searching for players with similar skill level...
             </div>
             <div className="flex justify-center gap-1.5">

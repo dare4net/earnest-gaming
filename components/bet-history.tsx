@@ -130,27 +130,27 @@ export function BetHistory({ leagueId }: BetHistoryProps) {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 mb-2">
               <Target className="h-4 w-4 text-blue-600" />
-              <span className="text-sm text-muted-foreground">Total Bets</span>
+              <span className="responsive-text text-muted-foreground">Total Bets</span>
             </div>
-            <div className="text-2xl font-bold">{stats.totalBets}</div>
+            <div className="text-xl sm:text-2xl font-bold">{stats.totalBets}</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-2 mb-2">
               <CheckCircle className="h-4 w-4 text-green-600" />
-              <span className="text-sm text-muted-foreground">Win Rate</span>
+              <span className="responsive-text text-muted-foreground">Win Rate</span>
             </div>
-            <div className="text-2xl font-bold">{stats.winRate.toFixed(1)}%</div>
+            <div className="text-xl sm:text-2xl font-bold">{stats.winRate.toFixed(1)}%</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-2 mb-2">
               <TrendingUp className="h-4 w-4 text-purple-600" />
-              <span className="text-sm text-muted-foreground">Total Staked</span>
+              <span className="responsive-text text-muted-foreground">Total Staked</span>
             </div>
-            <div className="text-2xl font-bold">{formatCurrency(stats.totalStaked)}</div>
+            <div className="text-xl sm:text-2xl font-bold">{formatCurrency(stats.totalStaked)}</div>
           </CardContent>
         </Card>
         <Card>
@@ -161,9 +161,9 @@ export function BetHistory({ leagueId }: BetHistoryProps) {
               ) : (
                 <TrendingDown className="h-4 w-4 text-red-600" />
               )}
-              <span className="text-sm text-muted-foreground">Profit/Loss</span>
+              <span className="responsive-text text-muted-foreground">Profit/Loss</span>
             </div>
-            <div className={`text-2xl font-bold ${stats.profit >= 0 ? "text-green-600" : "text-red-600"}`}>
+            <div className={`text-xl sm:text-2xl font-bold ${stats.profit >= 0 ? "text-green-600" : "text-red-600"}`}>
               {stats.profit >= 0 ? "+" : ""}
               {formatCurrency(stats.profit)}
             </div>
@@ -174,11 +174,11 @@ export function BetHistory({ leagueId }: BetHistoryProps) {
       {/* Bet History */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 responsive-text-lg">
             <Target className="h-5 w-5" />
             Betting History
           </CardTitle>
-          <CardDescription>Your betting activity for this tournament</CardDescription>
+          <CardDescription className="responsive-text">Your betting activity for this tournament</CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="all" className="w-full">
@@ -207,8 +207,8 @@ export function BetHistory({ leagueId }: BetHistoryProps) {
                       <TableRow key={bet.id}>
                         <TableCell>
                           <div>
-                            <div className="font-medium">{bet.selection}</div>
-                            <div className="text-sm text-muted-foreground">{bet.description}</div>
+                            <div className="font-medium responsive-text">{bet.selection}</div>
+                            <div className="responsive-text text-muted-foreground">{bet.description}</div>
                           </div>
                         </TableCell>
                         <TableCell className="capitalize">{bet.type.replace("_", " ")}</TableCell>
@@ -256,7 +256,7 @@ export function BetHistory({ leagueId }: BetHistoryProps) {
                           <TableCell className="font-medium text-green-600">
                             {formatCurrency(bet.potentialPayout)}
                           </TableCell>
-                          <TableCell className="text-sm">{formatDate(bet.placedAt)}</TableCell>
+                          <TableCell className="responsive-text">{formatDate(bet.placedAt)}</TableCell>
                         </TableRow>
                       ))}
                   </TableBody>
@@ -298,7 +298,7 @@ export function BetHistory({ leagueId }: BetHistoryProps) {
                             {bet.status === "won" ? formatCurrency(bet.potentialPayout) : "$0.00"}
                           </TableCell>
                           <TableCell>{getStatusBadge(bet.status)}</TableCell>
-                          <TableCell className="text-sm">{bet.settledAt ? formatDate(bet.settledAt) : "-"}</TableCell>
+                          <TableCell className="responsive-text">{bet.settledAt ? formatDate(bet.settledAt) : "-"}</TableCell>
                         </TableRow>
                       ))}
                   </TableBody>

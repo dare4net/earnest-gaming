@@ -132,13 +132,13 @@ export default function ProfilePage() {
             </Avatar>
             <div>
               <div className="flex items-center gap-2">
-                <p className="font-bold text-lg">Gaming_Pro123</p>
+                <p className="font-bold responsive-text-lg">Gaming_Pro123</p>
                 <div className="flex items-center gap-1.5 bg-[#1C1E24] px-2 py-0.5 rounded-full">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                   <span className="text-xs text-emerald-500 font-medium">Online</span>
                 </div>
               </div>
-              <p className="text-sm text-gray-400">ID: #123456</p>
+              <p className="responsive-text text-gray-400">ID: #123456</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -161,17 +161,17 @@ export default function ProfilePage() {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
               <Wallet className="h-4 w-4 text-white" />
             </div>
-            <h2 className="text-lg font-bold text-white">Total Balance</h2>
+            <h2 className="responsive-text-lg font-bold text-white">Total Balance</h2>
           </div>
 
           {/* Balance Section */}
           <div className="flex items-center gap-3">
             <div className="flex flex-col leading-tight">
-              <p className="text-sm text-gray-400 flex items-center gap-1.5 mb-1">
+              <p className="responsive-text text-gray-400 flex items-center gap-1.5 mb-1">
                 <ShieldCheck className="h-4 w-4 text-emerald-500" /> Secured Wallet
               </p>
 
-              <p className="text-3xl font-bold tracking-tight bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
+              <p className="text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
                 {showBalance ? `₦${mockBalance.toLocaleString()}` : '₦*****'}
               </p>
             </div>
@@ -233,7 +233,7 @@ export default function ProfilePage() {
 
   {/* Last Transaction */}
   <div className="mt-4 border-t border-[#2A2D36] pt-4">
-    <p className="text-sm text-gray-400 flex items-center gap-2">
+    <p className="responsive-text text-gray-400 flex items-center gap-2">
       <History className="h-4 w-4" /> Last transaction:{' '}
       <span className="font-medium text-white">₦12,500 Withdrawn</span> 
       <span className="text-xs">on Aug 28</span>
@@ -247,8 +247,8 @@ export default function ProfilePage() {
 {/* Games */}
         <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4 sm:p-6 mb-6">
           <div className="text-center mb-6">
-            <h2 className="text-xl font-bold text-white mb-2">Select a Game</h2>
-            <p className="text-sm text-gray-400">Choose from our supported games to find your perfect opponent</p>
+            <h2 className="responsive-text-xl font-bold text-white mb-2">Select a Game</h2>
+            <p className="responsive-text text-gray-400">Choose from our supported games to find your perfect opponent</p>
           </div>
           <div className="grid grid-cols-3 gap-3 sm:gap-4">
             {games.map((game) => (
@@ -261,7 +261,7 @@ export default function ProfilePage() {
                   <Image src={game.iconPath} alt={game.name} fill className="object-contain p-2" />
                 </div>
                 <div className="flex items-center justify-center gap-2">
-                  <h3 className="text-sm font-medium text-white">{game.name}</h3>
+                  <h3 className="responsive-text font-medium text-white">{game.name}</h3>
                   <TrendingUp className="h-4 w-4 text-emerald-500" />
                 </div>
               </div>
@@ -282,8 +282,8 @@ export default function ProfilePage() {
 <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4 sm:p-6 mb-6">
   <div className="flex justify-between items-center mb-6">
     <div>
-      <h2 className="text-xl font-bold text-white">Recent Games</h2>
-      <p className="text-sm text-gray-400 mt-1">Your latest gaming activities</p>
+      <h2 className="responsive-text-xl font-bold text-white">Recent Games</h2>
+      <p className="responsive-text text-gray-400 mt-1">Your latest gaming activities</p>
     </div>
     <Button 
       variant="link" 
@@ -368,7 +368,7 @@ export default function ProfilePage() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <p className="font-semibold text-white">{match.game}</p>
+              <p className="font-semibold text-white responsive-text">{match.game}</p>
               <div className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                 match.outcome === 'win'
                   ? 'bg-emerald-500/10 text-emerald-500'
@@ -380,7 +380,7 @@ export default function ProfilePage() {
               </div>
             </div>
             {/* Opponent info */}
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="responsive-text text-gray-400 mt-1">
               vs {match.opponent}
             </p>
             <p className="text-xs text-gray-500 mt-0.5">
@@ -391,7 +391,7 @@ export default function ProfilePage() {
 
         {/* Amount with gradient text */}
         <div className="text-right">
-          <p className="font-bold text-lg bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
+          <p className="font-bold responsive-text-lg bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
             ₦{match.amount.toLocaleString()}
           </p>
         </div>
@@ -405,8 +405,8 @@ export default function ProfilePage() {
         <div className="bg-[#1C1E24] rounded-xl border border-[#2A2D36] p-4 sm:p-6">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h2 className="text-xl font-bold text-white">Active Leagues</h2>
-              <p className="text-sm text-gray-400 mt-1">3 leagues in progress</p>
+              <h2 className="responsive-text-xl font-bold text-white">Active Leagues</h2>
+              <p className="responsive-text text-gray-400 mt-1">3 leagues in progress</p>
             </div>
             <Button 
               variant="link" 
@@ -433,7 +433,7 @@ export default function ProfilePage() {
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <p className="font-semibold text-white">{league.name}</p>
+                      <p className="font-semibold text-white responsive-text">{league.name}</p>
                       <div className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                         league.status === 'ongoing' 
                           ? 'bg-emerald-500/10 text-emerald-500' 
@@ -443,11 +443,11 @@ export default function ProfilePage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2 mt-1">
-                      <p className="text-sm text-gray-400">
+                      <p className="responsive-text text-gray-400">
                         {league.players} Players
                       </p>
                       <span className="text-gray-600">•</span>
-                      <p className="text-sm font-medium text-yellow-500">
+                      <p className="responsive-text font-medium text-yellow-500">
                         ₦{league.prize.toLocaleString()} Prize
                       </p>
                     </div>

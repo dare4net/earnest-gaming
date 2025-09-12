@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { MatchBase } from "./match-base"
 import { WagerControls } from "./wager-controls"
 import { MatchConfirmation } from "./match-confirmation"
+import { api } from "@/lib/api"
 
 interface FifaMatchProps {
   onClose?: () => void
@@ -24,12 +25,25 @@ export function FifaMatch({ onClose }: FifaMatchProps) {
 
   const handleConfirm = () => {
     setIsSearching(true);
-    // TODO: Implement matchmaking logic
-    setTimeout(() => {
-      setIsSearching(false);
-      // Redirect to match page with generated ID
-      window.location.href = `/match/${Date.now()}`;
-    }, 3000);
+    (async () => {
+      try {
+        const create = await api.createMatch({
+          game: 'FIFA',
+          entryFee: Number(wagerAmount[0]),
+          format: '1v1',
+          rules: ['Best of 3'],
+          matchType: 'regular'
+        })
+        const matchId = create?.match?._id || create?._id
+        if (!matchId) throw new Error('Failed to create match')
+        await api.searchOpponent(matchId)
+        window.location.href = `/match/${matchId}`
+      } catch (e) {
+        console.error(e)
+        alert((e as Error).message || 'Failed to create match')
+        setIsSearching(false)
+      }
+    })()
   }
 
   const handleBack = () => {
@@ -93,7 +107,7 @@ export function FifaMatch({ onClose }: FifaMatchProps) {
     >
       {/* Game Mode Selection */}
       <div className="bg-[#15171B] rounded-xl border border-[#2A2D36] p-4">
-        <Label className="text-lg font-bold text-white block mb-4 responsive-text-xl">Game Mode</Label>
+        <Label className="responsive-text-lg font-bold text-white block mb-4">Game Mode</Label>
         <Select value={gameMode} onValueChange={setGameMode}>
           <SelectTrigger className="h-12 bg-[#1C1E24] border-[#2A2D36] text-white responsive-text">
             <SelectValue placeholder="Select FIFA game mode" />

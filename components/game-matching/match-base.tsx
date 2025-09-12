@@ -20,7 +20,7 @@ export function MatchBase({ title, icon, description, onlineCount, children }: M
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
                 {icon}
               </div>
-              <h2 className="text-h2 font-bold text-white">{title}</h2>
+              <h2 className="responsive-text-xl font-bold text-white">{title}</h2>
             </div>
             <Badge variant="outline" className="bg-[#15171B] border-[#2A2D36] hover:bg-[#15171B] hover:border-emerald-500/50">
               <Users className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-500 mr-1" />

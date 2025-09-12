@@ -44,6 +44,22 @@ export const api = {
   getMatches: () => fetchApi('/matches'),
   getMatch: (id: string) => fetchApi(`/matches/${id}`),
   getUserMatches: (userId: string) => fetchApi(`/matches/user/${userId}`),
+  getUserActiveMatches: (userId: string) => fetchApi(`/matches/user/${userId}/active`),
+  createMatch: (payload: { game: 'CODM' | 'eFootball' | 'FIFA'; entryFee: number; format?: '1v1' | '2v2' | '3v3' | '4v4' | '5v5'; rules?: string[]; matchType?: 'regular' | 'league' }) =>
+    fetchApi('/matches/create', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+  searchOpponent: (matchId: string) =>
+    fetchApi(`/matches/${matchId}/searchOpponent`, { method: 'POST' }),
+  joinMatch: (matchId: string) =>
+    fetchApi(`/matches/${matchId}/join`, { method: 'POST' }),
+  matchWithPlayer: (matchId: string, playerId: string) =>
+    fetchApi(`/matches/${matchId}/matchWithPlayer`, { method: 'POST', body: JSON.stringify({ playerId }) }),
+  updateMatchStatus: (matchId: string, status: 'matching' | 'matched' | 'playing' | 'verification' | 'finished') =>
+    fetchApi(`/matches/${matchId}/status`, { method: 'PATCH', body: JSON.stringify({ status }) }),
+  deleteMatch: (matchId: string) =>
+    fetchApi(`/matches/${matchId}`, { method: 'DELETE' }),
   
   // Users/Players
   getPlayers: () => fetchApi('/users'),

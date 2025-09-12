@@ -117,22 +117,22 @@ export function MatchChat({ matchId, currentUser, opponent }: MatchChatProps) {
   }
 
   return (
-    <Card className="h-96 flex flex-col">
+    <Card className="h-full flex flex-col bg-[#1C1E24] border border-[#2A2D36] overflow-hidden">
       {/* Header */}
-      <CardHeader className="pb-3">
-        <CardTitle className="flex items-center justify-between">
+      <CardHeader className="pb-3 border-b border-[#2A2D36]">
+        <CardTitle className="flex items-center justify-between text-white">
           <div className="flex items-center gap-2">
-            <MessageCircle className="h-5 w-5" />
+            <MessageCircle className="h-5 w-5 text-emerald-500" />
             Match Chat
           </div>
           <div className="flex items-center gap-2">
             {isConnected ? (
-              <Badge variant="secondary" className="bg-green-100 text-green-800 flex items-center gap-1">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              <Badge variant="outline" className="bg-[#1C1E24] border-emerald-500/30 text-emerald-400 flex items-center gap-1">
+                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
                 Connected
               </Badge>
             ) : (
-              <Badge variant="secondary" className="bg-red-100 text-red-800">
+              <Badge variant="outline" className="bg-[#1C1E24] border-red-500/30 text-red-400">
                 Disconnected
               </Badge>
             )}
@@ -141,30 +141,28 @@ export function MatchChat({ matchId, currentUser, opponent }: MatchChatProps) {
       </CardHeader>
 
       {/* Body */}
-      <CardContent className="flex-1 flex flex-col p-0">
+      <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+        <div className="flex-1 overflow-y-auto p-4 pr-3 space-y-3">
           {messages.map((message) => (
             <div
               key={message.id}
               className={`flex ${message.isSystem ? "justify-center" : message.isCurrentUser ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`px-3 py-2 rounded-lg text-sm 
-                  whitespace-pre-wrap break-words break-all 
-                  max-w-full sm:max-w-md
+                className={`px-3 py-2 rounded-lg text-sm whitespace-pre-wrap break-words break-all max-w-full sm:max-w-md border
                   ${message.isSystem
-                    ? "bg-muted text-muted-foreground text-center"
+                    ? "bg-[#15171B] border-[#2A2D36] text-gray-400 text-center"
                     : message.isCurrentUser
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted"}
+                      ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-300"
+                      : "bg-[#15171B] border-[#2A2D36] text-gray-200"}
                 `}
               >
                 {!message.isSystem && (
-                  <div className="font-medium text-xs mb-1 opacity-75">{message.username}</div>
+                  <div className="font-medium text-xs mb-1 text-gray-400">{message.username}</div>
                 )}
                 <div>{message.message}</div>
-                <div className="text-xs opacity-75 mt-1">{formatTime(message.timestamp)}</div>
+                <div className="text-xs text-gray-400 mt-1">{formatTime(message.timestamp)}</div>
               </div>
             </div>
           ))}
@@ -172,7 +170,7 @@ export function MatchChat({ matchId, currentUser, opponent }: MatchChatProps) {
         </div>
 
         {/* Input */}
-        <div className="p-4 border-t">
+        <div className="p-4 border-t border-[#2A2D36]">
           <div className="flex gap-2 items-center">
             <Input
               placeholder="Type a message..."
@@ -181,18 +179,18 @@ export function MatchChat({ matchId, currentUser, opponent }: MatchChatProps) {
               onKeyPress={handleKeyPress}
               disabled={!isConnected}
               maxLength={200}
-              className="flex-1"
+              className="flex-1 bg-[#1C1E24] border-[#2A2D36] text-white placeholder:text-gray-500"
             />
             <Button
               onClick={sendMessage}
               disabled={!newMessage.trim() || !isConnected}
               size="sm"
-              className="shrink-0"
+              className="shrink-0 bg-emerald-500 hover:bg-emerald-600 text-white"
             >
               <Send className="h-4 w-4" />
             </Button>
           </div>
-          <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
+          <div className="flex items-center justify-between mt-2 text-xs text-gray-400">
             <div className="flex items-center gap-1">
               <Shield className="h-3 w-3" />
               Keep it respectful

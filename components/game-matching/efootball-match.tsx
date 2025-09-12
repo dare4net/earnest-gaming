@@ -4,6 +4,7 @@ import { MatchBase } from "./match-base"
 import { WagerControls } from "./wager-controls"
 import { Button } from "@/components/ui/button"
 import { MatchConfirmation } from "./match-confirmation"
+import { api } from "@/lib/api"
 
 interface EFootballMatchProps {
   onClose?: () => void
@@ -20,12 +21,25 @@ export function EFootballMatch({ onClose }: EFootballMatchProps) {
 
   const handleConfirm = () => {
     setIsSearching(true);
-    // TODO: Implement matchmaking logic
-    setTimeout(() => {
-      setIsSearching(false);
-      // Redirect to match page with generated ID
-      window.location.href = `/match/${Date.now()}`;
-    }, 3000);
+    (async () => {
+      try {
+        const create = await api.createMatch({
+          game: 'eFootball',
+          entryFee: Number(wagerAmount[0]),
+          format: '1v1',
+          rules: ['Best of 3'],
+          matchType: 'regular'
+        })
+        const matchId = create?.match?._id || create?._id
+        if (!matchId) throw new Error('Failed to create match')
+        await api.searchOpponent(matchId)
+        window.location.href = `/match/${matchId}`
+      } catch (e) {
+        console.error(e)
+        alert((e as Error).message || 'Failed to create match')
+        setIsSearching(false)
+      }
+    })()
   }
 
   if (showConfirmation) {
@@ -53,23 +67,23 @@ export function EFootballMatch({ onClose }: EFootballMatchProps) {
 
   const matchInfo = (
     <div className="bg-[#15171B] rounded-xl border border-[#2A2D36] p-4">
-      <h4 className="font-bold text-white mb-4">Match Details</h4>
+      <h4 className="font-bold text-white mb-4 responsive-text-lg">Match Details</h4>
       <div className="grid grid-cols-2 gap-4">
         <div className="bg-[#1C1E24] rounded-lg p-3 border border-[#2A2D36]">
-          <span className="text-sm text-gray-400 block mb-1">Game</span>
-          <span className="text-white font-medium">eFootball</span>
+          <span className="responsive-text text-gray-400 block mb-1">Game</span>
+          <span className="text-white font-medium responsive-text">eFootball</span>
         </div>
         <div className="bg-[#1C1E24] rounded-lg p-3 border border-[#2A2D36]">
-          <span className="text-sm text-gray-400 block mb-1">Format</span>
-          <span className="text-white font-medium">1v1</span>
+          <span className="responsive-text text-gray-400 block mb-1">Format</span>
+          <span className="text-white font-medium responsive-text">1v1</span>
         </div>
         <div className="bg-[#1C1E24] rounded-lg p-3 border border-[#2A2D36]">
-          <span className="text-sm text-gray-400 block mb-1">Platform</span>
-          <span className="text-white font-medium">Mobile</span>
+          <span className="responsive-text text-gray-400 block mb-1">Platform</span>
+          <span className="text-white font-medium responsive-text">Mobile</span>
         </div>
         <div className="bg-[#1C1E24] rounded-lg p-3 border border-[#2A2D36]">
-          <span className="text-sm text-gray-400 block mb-1">Duration</span>
-          <span className="text-white font-medium">~15 min</span>
+          <span className="responsive-text text-gray-400 block mb-1">Duration</span>
+          <span className="text-white font-medium responsive-text">~15 min</span>
         </div>
       </div>
     </div>

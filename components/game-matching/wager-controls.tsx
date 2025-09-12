@@ -45,7 +45,7 @@ export function WagerControls({
       <div className="space-y-6">
         {/* Wager Amount */}
         <div className="bg-[#15171B] rounded-xl border border-[#2A2D36] p-4">
-          <Label className="text-lg font-bold text-white mb-4 block">Wager Amount</Label>
+          <Label className="responsive-text-lg font-bold text-white mb-4 block">Wager Amount</Label>
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
@@ -59,11 +59,11 @@ export function WagerControls({
                 step={step}
                 className="flex-1"
               />
-              <div className="w-20 text-right font-bold text-lg bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
+              <div className="w-20 text-right font-bold responsive-text-lg bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
                 ₦{wagerAmount[0]}
               </div>
             </div>
-            <div className="flex justify-between text-sm text-gray-400">
+            <div className="flex justify-between responsive-text text-gray-400">
               <span>₦{minAmount} min</span>
               <span>₦{maxAmount} max</span>
             </div>
@@ -72,7 +72,7 @@ export function WagerControls({
 
         {/* Quick Amount Buttons */}
         <div className="bg-[#15171B] rounded-xl border border-[#2A2D36] p-4">
-          <Label className="text-white font-medium mb-3 block">Quick Select</Label>
+          <Label className="text-white font-medium mb-3 block responsive-text">Quick Select</Label>
           <div className="flex gap-2 flex-wrap">
             {quickSelectAmounts.map((amount) => (
               <Button
@@ -94,7 +94,7 @@ export function WagerControls({
         <Button 
           onClick={handleProceed} 
           disabled={disabled} 
-          className={`w-full h-12 text-lg font-medium rounded-xl
+          className={`w-full h-12 responsive-text-lg font-medium rounded-xl
             ${disabled ? 
               'bg-[#2A2D36] text-gray-500 cursor-not-allowed' : 
               'bg-gradient-to-r from-emerald-500 to-blue-600 text-white hover:from-emerald-600 hover:to-blue-700'
